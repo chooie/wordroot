@@ -60,6 +60,11 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+### Clojure
+.nrepl-history
+out/
+target/
+
 ### Misc
 # Logs
 .log

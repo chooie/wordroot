@@ -1,0 +1,2 @@
+{:require          [wordroot.core]
+ :compiler-options {:asset-path "js/main.out"}}
