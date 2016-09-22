@@ -62,6 +62,7 @@ $RECYCLE.BIN/
 
 ### Clojure
 .nrepl-history
+.nrepl-port
 out/
 target/
 

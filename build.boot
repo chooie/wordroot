@@ -18,10 +18,24 @@
   '[adzerk.boot-reload :refer [reload]]
   '[pandeiro.boot-http :refer [serve]])
 
+(deftask cider
+  "CIDER profile"
+  []
+  (require 'boot.repl)
+  (swap! @(resolve 'boot.repl/*default-dependencies*)
+    concat '[[org.clojure/tools.nrepl "0.2.12"]
+             [cider/cider-nrepl "0.13.0"]
+             [refactor-nrepl "2.2.0"]])
+  (swap! @(resolve 'boot.repl/*default-middleware*)
+    concat '[cider.nrepl/cider-middleware
+             refactor-nrepl.middleware/wrap-refactor])
+  identity)
+
 (deftask dev
-  "Launch Immediate Feedback Development Environment"
+  "Launch App with Development Profile"
   []
   (comp
+    (cider)
     (serve :dir "target")
     (watch)
     (reload)
