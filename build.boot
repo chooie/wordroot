@@ -34,14 +34,32 @@
              refactor-nrepl.middleware/wrap-refactor])
   identity)
 
-(deftask dev
-  "Launch App with Development Profile"
+(deftask build
   []
   (comp
-    (cider)
+    (speak)
+    (cljs)
+    (target :dir #{"target"})))
+
+(deftask run []
+  (comp
     (serve :dir "target")
     (watch)
     (reload)
     (cljs-repl)
-    (cljs)
-    (target :dir #{"target"})))
+    (build)))
+
+(deftask development []
+  (task-options!
+    cljs {:optimizations :none
+          :source-map    true}
+    reload {:on-jsload 'wordroot.core/init!})
+  (comp
+    (cider)))
+
+(deftask dev
+  "Launch App with Development Profile"
+  []
+  (comp
+    (development)
+    (run)))
