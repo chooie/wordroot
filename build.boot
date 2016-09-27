@@ -10,6 +10,9 @@
                   [adzerk/boot-reload "0.4.12"]
                   [com.cemerick/piggieback "0.2.1"]
                   [pandeiro/boot-http "0.7.3"]
+                  [reagent "0.6.0"]
+                  [reagent-utils "0.2.0"]
+                  [secretary "1.0.3"]
                   [weasel "0.7.0"]])
 
 (require

@@ -1,5 +1,10 @@
-(ns wordroot.core)
+(ns wordroot.core
+  (:require
+   [wordroot.components.core :as components]
+   [wordroot.routing :as routing]))
 
-(enable-console-print!)
-
-(println "Hello, world!")
+(defn init!
+  []
+  (enable-console-print!)
+  (routing/init!)
+  (components/mount-components))
