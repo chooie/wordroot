@@ -6,9 +6,9 @@
    [wordroot.components.pages.home.core :as home]))
 
 (def pages
-  {:home  #'home/home-page
-   :about #'about/about-page
-   :error #'error/error-page})
+  {:home  home/home-page
+   :about about/about-page
+   :error error/error-page})
 
 (defn generate-page-from-session
   []

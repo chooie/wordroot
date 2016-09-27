@@ -3,8 +3,9 @@
    [wordroot.components.core :as components]
    [wordroot.routing :as routing]))
 
+(routing/init!)
+
 (defn init!
   []
   (enable-console-print!)
-  (routing/init!)
   (components/mount-components))
