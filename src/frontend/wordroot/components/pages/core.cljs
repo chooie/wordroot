@@ -16,5 +16,5 @@
 
 (defn page-container
   []
-  [:div
+  [:div.page-container
    [(generate-page-from-session)]])

@@ -1,0 +1,41 @@
+h1 {
+  font-size: 2em;
+}
+
+h2 {
+  font-size: 1.8em;
+}
+
+h3 {
+  font-size: 1.6em;
+}
+
+html {
+  background: #555555;
+}
+
+body {
+  max-height: 100vh;
+  background: white;
+}
+
+.app {
+  margin: 0 10px;
+}
+
+.site-link {
+  display: inline-block;
+  margin: 2px;
+}
+
+.site-link a {
+  text-decoration: none;
+}
+
+@media only screen and (min-width: 800px) {
+  body {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

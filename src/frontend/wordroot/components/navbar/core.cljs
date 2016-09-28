@@ -4,14 +4,14 @@
 
 (defn link
   [href label]
-  [:li
+  [:li.site-link
    [:a
-    {:href (str "/#" href)}
+    {:href (str "/" constants/secretary-prefix href)}
     label]])
 
 (defn navbar-component
   []
-  [:div
+  [:nav
    [:ul
     [link (:home constants/paths) "Home"]
     [link (:about constants/paths) "About"]]])

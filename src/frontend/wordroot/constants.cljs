@@ -3,8 +3,7 @@
 (def application-element
   (js/document.getElementById "application"))
 
-(def navbar-element
-  (js/document.getElementById "navbar"))
+(def secretary-prefix "#")
 
 (def paths {:home  "/"
             :about "/about"})

@@ -7,7 +7,7 @@
    [wordroot.constants :as constants])
   (:import goog.History))
 
-(secretary/set-config! :prefix "#")
+(secretary/set-config! :prefix constants/secretary-prefix)
 
 (defn set-page-session-val!
   [page]

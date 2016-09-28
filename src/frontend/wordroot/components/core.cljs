@@ -5,7 +5,16 @@
    [wordroot.components.pages.core :as pages]
    [wordroot.constants :as constants]))
 
+(defn application-component
+  []
+  [:div.app
+   [navbar/navbar-component]
+   [pages/page-container]])
+
+(defn mount-application-component
+  []
+  (r/render application-component constants/application-element))
+
 (defn mount-components
   []
-  (r/render [navbar/navbar-component] constants/navbar-element)
-  (r/render [pages/page-container] constants/application-element))
+  (mount-application-component))
