@@ -1,3 +1,21 @@
+/* Apply a natural box layout model to all elements, but allowing components to change */
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+/* Base Styles */
+html {
+  background: #555555;
+}
+
+body {
+  max-height: 100vh;
+  background: white;
+}
+
 h1 {
   font-size: 2em;
 }
@@ -10,26 +28,38 @@ h3 {
   font-size: 1.6em;
 }
 
-html {
-  background: #555555;
+/* Colors */
+/* Primary: #263238 */
+/* Secondary: #B0BEC5 */
+/* Accent: #E65100 */
+
+/* App Styles */
+.navbar {
+  padding: 10px;
+  background: #263238;
 }
 
-body {
-  max-height: 100vh;
-  background: white;
-}
-
-.app {
-  margin: 0 10px;
+.site-links .site-link:not(:first-child) {
+  margin-left: 5px;
 }
 
 .site-link {
   display: inline-block;
-  margin: 2px;
 }
 
 .site-link a {
   text-decoration: none;
+  color: white;
+}
+
+.site-link a.active {
+  color: #E65100;
+}
+
+.page-container {
+  padding: 10px;
+  background: #B0BEC5;
+  height: 100%;
 }
 
 @media only screen and (min-width: 800px) {
