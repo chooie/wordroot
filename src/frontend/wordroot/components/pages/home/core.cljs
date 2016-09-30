@@ -1,17 +1,24 @@
 (ns wordroot.components.pages.home.core
   (:require [reagent.session :as session]))
 
-(def classes ["colour-1" "colour-2" "colour-3"])
+(def colour-classes ["colour-1" "colour-2" "colour-3"])
+(def line-classes ["underline" "overline"])
 
 (defn isNan?
   [n]
   (js/isNaN n))
 
-(defn get-colour-class-at-index
+(defn get-class-at-index
   [classes index]
-  (let [modded-i     (mod index (count classes))
-        colour-class (get classes modded-i)]
-    colour-class))
+  (let [modded-i (mod index (count classes))
+        class    (get classes modded-i)]
+    class))
+
+(defn get-word-part-classes
+  [colour-classes list-classes index]
+  (let [colour-class (get-class-at-index colour-classes index)
+        line-class   (get-class-at-index line-classes index)]
+    (clojure.string/join " " [colour-class line-class])))
 
 (defn prepare-part
   [part index]
@@ -20,10 +27,10 @@
     part))
 
 (defn word-part
-  [classes part index]
+  [colour-classes line-classes part index]
   ^{:key part}
   [:li.word-part
-   {:class (get-colour-class-at-index classes index)}
+   {:class (get-word-part-classes colour-classes line-classes index)}
    (prepare-part part index)])
 
 (defn word-parts-header
@@ -33,14 +40,16 @@
    [:ul.word-parts
     (map-indexed
       (fn [i part]
-        (word-part classes part i))
+        (word-part colour-classes line-classes part i))
       word-parts)]])
 
 (defn home-page
   []
-  (let [word       (session/get :word)
-        word-parts (:parts word)]
+  (let [word (session/get :word)
+        ]
     [:div
-     [:h1 "Home"]
-     [:div
-      [word-parts-header word-parts]]]))
+     [:h1"Home"]
+     [:div.center
+      [word-parts-header (:parts word)]]
+     [:div.center
+      [:p (:description word)]]]))

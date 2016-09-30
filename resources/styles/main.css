@@ -46,6 +46,10 @@ h3 {
 }
 
 /* App Styles */
+.center {
+  text-align: center;
+}
+
 .navbar {
   padding: 10px;
   background: #263238;
@@ -76,6 +80,14 @@ h3 {
 
 .word-part {
   display: inline-block;
+}
+
+.word-part.underline {
+  border-bottom: solid 1px;
+}
+
+.word-part.overline {
+  border-top: solid 1px;
 }
 
 @media only screen and (min-width: 800px) {

@@ -15,7 +15,6 @@
 
 (defroute home-path (:home constants/paths)
   []
-  (session/put! :word {:parts ["my" "test" "word"]})
   (set-page-session-val! :home))
 
 (defroute about-path (:about constants/paths)
