@@ -2,4 +2,6 @@
 
 (defn about-page
   []
-  [:h1 "About"])
+  [:div
+   [:h1 "About"]
+   [:p "Wordroot teaches the meaning of words and their roots."]])

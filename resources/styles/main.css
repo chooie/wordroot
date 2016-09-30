@@ -33,6 +33,18 @@ h3 {
 /* Secondary: #B0BEC5 */
 /* Accent: #E65100 */
 
+.colour-1 {
+  color: red;
+}
+
+.colour-2 {
+  color: green;
+}
+
+.colour-3 {
+  color: blue;
+}
+
 /* App Styles */
 .navbar {
   padding: 10px;
@@ -60,6 +72,10 @@ h3 {
   padding: 10px;
   background: #B0BEC5;
   height: 100%;
+}
+
+.word-part {
+  display: inline-block;
 }
 
 @media only screen and (min-width: 800px) {

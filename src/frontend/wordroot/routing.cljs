@@ -15,6 +15,7 @@
 
 (defroute home-path (:home constants/paths)
   []
+  (session/put! :word {:parts ["my" "test" "word"]})
   (set-page-session-val! :home))
 
 (defroute about-path (:about constants/paths)
@@ -31,10 +32,11 @@
     (events/listen
       HistoryEventType/NAVIGATE
       (fn [event]
-        (secretary/dispatch! (.-token event))))
+        (when (not-empty (.-token event))
+          (secretary/dispatch! (.-token event)))))
     (.setEnabled true)))
 
 (defn init!
   []
   (hook-browser-navigation!)
-  (secretary/dispatch! "/"))
+  (secretary/dispatch! (:home constants/paths)))

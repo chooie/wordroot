@@ -13,7 +13,7 @@
 
 (defn mount-application-component
   []
-  (r/render application-component constants/application-element))
+  (r/render #'application-component constants/application-element))
 
 (defn mount-components
   []
