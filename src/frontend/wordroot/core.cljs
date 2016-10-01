@@ -6,8 +6,10 @@
 
 (enable-console-print!)
 (routing/init!)
-(session/put! :word {:parts       ["my" "test" "word"]
-                     :description "This is my test word's description"})
+(session/put! :words [{:parts       ["my" "test" "word"]
+                       :description "This is my test word's description"}
+                      {:parts       ["this" "is" "a" "word"]
+                       :description "Just another word"}])
 
 (defn init!
   []

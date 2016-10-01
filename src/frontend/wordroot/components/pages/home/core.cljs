@@ -1,5 +1,8 @@
 (ns wordroot.components.pages.home.core
-  (:require [reagent.session :as session]))
+  (:require
+   [reagent.core :as reagent]
+   [reagent.session :as session]
+   [wordroot.components.pages.home.words-navbar :as words-navbar]))
 
 (def colour-classes ["colour-1" "colour-2" "colour-3"])
 (def line-classes ["underline" "overline"])
@@ -45,11 +48,14 @@
 
 (defn home-page
   []
-  (let [word (session/get :word)
-        ]
-    [:div
-     [:h1"Home"]
-     [:div.center
-      [word-parts-header (:parts word)]]
-     [:div.center
-      [:p (:description word)]]]))
+  (let [current-word-index-atom (reagent/atom 0)]
+    (fn []
+      (let [words (session/get :words)
+            word  (get words @current-word-index-atom)]
+        [:div
+         [words-navbar/component words current-word-index-atom]
+         [:h1"Home"]
+         [:div.center
+          [word-parts-header (:parts word)]]
+         [:div.center
+          [:p (:description word)]]]))))
