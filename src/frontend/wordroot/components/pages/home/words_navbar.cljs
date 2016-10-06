@@ -1,9 +1,12 @@
 (ns wordroot.components.pages.home.words-navbar)
 
 (defn component
-  [words current-word-index-atom]
-  (let [current-index @current-word-index-atom]
+  [words current-word-index-atom menu-is-open?-atom]
+  (let [current-index @current-word-index-atom
+        menu-is-open? @menu-is-open?-atom]
     [:aside.words-side-bar
+     {:class (doall (when (not menu-is-open?)
+                      "hidden"))}
      [:ul.words
       (map-indexed
         (fn [index word]

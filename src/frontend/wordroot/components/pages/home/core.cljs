@@ -46,14 +46,25 @@
         (word-part colour-classes line-classes part i))
       word-parts)]])
 
+(defn menu-toggle
+  [menu-is-open?-atom]
+  [:div.menu-toggle
+   {:on-click #(reset! menu-is-open?-atom (not @menu-is-open?-atom))}
+   [:p "Words"]])
+
 (defn home-page
   []
-  (let [current-word-index-atom (reagent/atom 0)]
+  (let [current-word-index-atom (reagent/atom 0)
+        menu-is-open?-atom      (reagent/atom false)]
     (fn []
       (let [words (session/get :words)
             word  (get words @current-word-index-atom)]
         [:div
-         [words-navbar/component words current-word-index-atom]
+         [words-navbar/component words
+          current-word-index-atom
+          menu-is-open?-atom]
+         [menu-toggle menu-is-open?-atom]
+         [:p @menu-is-open?-atom]
          [:h1"Home"]
          [:div.center
           [word-parts-header (:parts word)]]
