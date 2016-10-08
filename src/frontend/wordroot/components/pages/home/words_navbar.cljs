@@ -5,15 +5,21 @@
   (let [current-index @current-word-index-atom
         menu-is-open? @menu-is-open?-atom]
     [:aside.words-side-bar
-     {:class (doall (when (not menu-is-open?)
-                      "hidden"))}
+     {:class (when (not menu-is-open?)
+               "hidden")}
+     [:div.right
+      [:div.close-button-mobile
+       {:on-click #(reset! menu-is-open?-atom false)}
+       "X"]]
      [:ul.words
       (map-indexed
         (fn [index word]
           ^{:key index}
           [:li.word
-           {:on-click #(reset! current-word-index-atom index)
-            :class    (doall (when (= current-index index)
-                               "active"))}
+           {:on-click (fn []
+                        (reset! current-word-index-atom index)
+                        (reset! menu-is-open?-atom false))
+            :class    (when (= current-index index)
+                        "active")}
            (apply str (:parts word))])
         words)]]))

@@ -47,10 +47,23 @@
       word-parts)]])
 
 (defn menu-toggle
-  [menu-is-open?-atom]
+  [content menu-is-open?-atom]
   [:div.menu-toggle
-   {:on-click #(reset! menu-is-open?-atom (not @menu-is-open?-atom))}
-   [:p "Words"]])
+   {:class         (when @menu-is-open?-atom
+                     "active")
+    :on-click      (fn [event]
+                     (reset! menu-is-open?-atom (not @menu-is-open?-atom)))
+    :on-mouse-down (fn [event]
+                     (.preventDefault event))}
+   content])
+
+(defn words-menu-toggle
+  [menu-is-open?-atom]
+  (menu-toggle
+    [:p (if @menu-is-open?-atom
+          "X"
+          "Words")]
+    menu-is-open?-atom))
 
 (defn home-page
   []
@@ -63,8 +76,8 @@
          [words-navbar/component words
           current-word-index-atom
           menu-is-open?-atom]
-         [menu-toggle menu-is-open?-atom]
-         [:p @menu-is-open?-atom]
+         [:div.controls
+          [words-menu-toggle menu-is-open?-atom]]
          [:h1"Home"]
          [:div.center
           [word-parts-header (:parts word)]]

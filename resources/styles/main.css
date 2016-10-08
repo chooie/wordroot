@@ -55,6 +55,10 @@ h3 {
   text-align: center;
 }
 
+.right {
+  text-align: right;
+}
+
 .navbar {
   padding: 10px;
   background: #263238;
@@ -99,7 +103,7 @@ h3 {
 .words-side-bar {
   background: #263238;
   position: absolute;
-  min-width: 300px;
+  width: 100%;
   padding: 10px 0 10px 10px;
   min-height: 100%;
   margin-left: -10px;
@@ -121,9 +125,50 @@ h3 {
   border-bottom: solid 1px #FFB74D;
 }
 
+.controls {
+  text-align: right;
+}
+
 .menu-toggle {
-  width: 40px;
-  float: right;
+  display: inline-block;
+  min-width: 40px;
+  background: #263238;
+  border: solid 1px #E65100;
+  border-radius: 5px;
+  overflow: hidden;
+  text-align: center;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  outline-style: none;
+}
+
+.menu-toggle.active {
+  color: #FFB74D;
+}
+
+.close-button-mobile {
+  display: inline-block;
+  min-width: 40px;
+  background: #263238;
+  border: solid 1px #E65100;
+  border-radius: 5px;
+  overflow: hidden;
+  text-align: center;
+  color: white;
+  margin-right: 10px;
+  padding: 10px;
+  cursor: pointer;
+  outline-style: none;
+}
+
+@media only screen and (min-width: 350px) {
+  .words-side-bar {
+    max-width: 300px;
+  }
+  .close-button-mobile {
+    display: none;
+  }
 }
 
 @media only screen and (min-width: 800px) {
