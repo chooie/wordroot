@@ -1,0 +1,38 @@
+/* Apply a natural box layout model to all elements, but allowing components to change */
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+$grey: #555555;
+
+html {
+  background: $grey;
+}
+
+body {
+  min-height: 100vh;
+  background: white;
+}
+
+h1 {
+  font-size: 2em;
+}
+
+h2 {
+  font-size: 1.8em;
+}
+
+h3 {
+  font-size: 1.6em;
+}
+
+@media only screen and (min-width: 800px) {
+  body {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

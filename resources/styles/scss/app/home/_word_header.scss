@@ -1,0 +1,25 @@
+.word-header {
+  .colour-1 {
+    color: red;
+  }
+
+  .colour-2 {
+    color: green;
+  }
+
+  .colour-3 {
+    color: blue;
+  }
+
+  .word-part {
+    display: inline-block;
+
+    &.underline {
+      border-bottom: solid 1px;
+    }
+
+    &.overline {
+      border-top: solid 1px;
+    }
+  }
+}

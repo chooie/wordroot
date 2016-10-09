@@ -1,0 +1,38 @@
+.menu-toggle {
+  display: inline-block;
+  min-width: 40px;
+  background: #263238;
+  border: solid 1px #E65100;
+  border-radius: 5px;
+  overflow: hidden;
+  text-align: center;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  outline-style: none;
+
+  &.active {
+    color: #FFB74D;
+  }
+}
+
+.close-button-mobile {
+  display: inline-block;
+  min-width: 40px;
+  background: #263238;
+  border: solid 1px #E65100;
+  border-radius: 5px;
+  overflow: hidden;
+  text-align: center;
+  color: white;
+  margin-right: 10px;
+  padding: 10px;
+  cursor: pointer;
+  outline-style: none;
+}
+
+@media only screen and (min-width: 350px) {
+  .close-button-mobile {
+    display: none;
+  }
+}

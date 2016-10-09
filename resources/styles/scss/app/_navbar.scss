@@ -1,0 +1,22 @@
+.navbar {
+  padding: 10px;
+  background: #263238;
+  border-bottom: solid 1px #E65100;
+
+  .site-links .site-link:not(:first-child) {
+    margin-left: 5px;
+  }
+
+  .site-link {
+    display: inline-block;
+
+    a {
+      text-decoration: none;
+      color: white;
+    }
+
+    a.active {
+      color: #E65100;
+    }
+  }
+}

@@ -9,6 +9,8 @@
                   [adzerk/boot-cljs-repl "0.3.2"]
                   [adzerk/boot-reload "0.4.12"]
                   [com.cemerick/piggieback "0.2.1"]
+                  [deraen/sass4clj "0.3.0-SNAPSHOT"]
+                  [deraen/boot-sass "0.3.0-SNAPSHOT"]
                   [pandeiro/boot-http "0.7.3"]
                   [reagent "0.6.0"]
                   [reagent-utils "0.2.0"]
@@ -19,6 +21,7 @@
   '[adzerk.boot-cljs :refer [cljs]]
   '[adzerk.boot-cljs-repl :refer [cljs-repl start-repl]]
   '[adzerk.boot-reload :refer [reload]]
+  '[deraen.boot-sass :refer [sass]]
   '[pandeiro.boot-http :refer [serve]])
 
 (deftask cider
@@ -38,6 +41,7 @@
   []
   (comp
     (speak)
+    (sass)
     (cljs)
     (target :dir #{"target"})))
 

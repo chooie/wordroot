@@ -1,0 +1,30 @@
+.words-side-bar {
+  background: #263238;
+  position: absolute;
+  width: 100%;
+  padding: 10px 0 10px 10px;
+  min-height: 100%;
+  margin-left: -10px;
+  margin-top: -10px;
+
+  .words {
+    color: white;
+
+    .word {
+      border-bottom: solid 1px white;
+      padding: 10px 0 10px 10px;
+      cursor: pointer;
+
+      active {
+        color: #FFB74D;
+        border-bottom: solid 1px #FFB74D;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 350px) {
+  .words-side-bar {
+    max-width: 300px;
+  }
+}

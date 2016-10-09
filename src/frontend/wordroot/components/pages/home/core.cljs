@@ -39,7 +39,7 @@
 (defn word-parts-header
   [word-parts]
   {:pre [(> (count word-parts) 0)]}
-  [:div.header
+  [:div.word-header.center
    [:ul.word-parts
     (map-indexed
       (fn [i part]
@@ -79,7 +79,6 @@
          [:div.controls
           [words-menu-toggle menu-is-open?-atom]]
          [:h1"Home"]
-         [:div.center
-          [word-parts-header (:parts word)]]
+         [word-parts-header (:parts word)]
          [:div.center
           [:p (:description word)]]]))))
