@@ -1,5 +1,5 @@
 .words-side-bar {
-  background: #263238;
+  background: $primary;
   position: absolute;
   width: 100%;
   padding: 10px 0 10px 10px;
@@ -16,8 +16,8 @@
       cursor: pointer;
 
       active {
-        color: #FFB74D;
-        border-bottom: solid 1px #FFB74D;
+        color: $accent2;
+        border-bottom: solid 1px $accent2;
       }
     }
   }

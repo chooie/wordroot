@@ -1,8 +1,8 @@
 .menu-toggle {
   display: inline-block;
   min-width: 40px;
-  background: #263238;
-  border: solid 1px #E65100;
+  background: $primary;
+  border: solid 1px $accent1;
   border-radius: 5px;
   overflow: hidden;
   text-align: center;
@@ -19,8 +19,8 @@
 .close-button-mobile {
   display: inline-block;
   min-width: 40px;
-  background: #263238;
-  border: solid 1px #E65100;
+  background: $primary;
+  border: solid 1px $accent1;
   border-radius: 5px;
   overflow: hidden;
   text-align: center;
