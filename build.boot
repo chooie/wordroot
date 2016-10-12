@@ -8,7 +8,9 @@
                   [adzerk/boot-cljs "1.7.228-1"]
                   [adzerk/boot-cljs-repl "0.3.2"]
                   [adzerk/boot-reload "0.4.12"]
+                  ;; [adzerk/boot-test "1.1.2" :scope "test"]
                   [com.cemerick/piggieback "0.2.1"]
+                  [crisptrutski/boot-cljs-test "0.2.2-SNAPSHOT"]
                   [deraen/sass4clj "0.3.0-SNAPSHOT"]
                   [deraen/boot-sass "0.3.0-SNAPSHOT"]
                   [pandeiro/boot-http "0.7.3"]
@@ -21,6 +23,8 @@
   '[adzerk.boot-cljs :refer [cljs]]
   '[adzerk.boot-cljs-repl :refer [cljs-repl start-repl]]
   '[adzerk.boot-reload :refer [reload]]
+  ;; '[adzerk.boot-test :refer :all]
+  '[crisptrutski.boot-cljs-test :refer [test-cljs]]
   '[deraen.boot-sass :refer [sass]]
   '[pandeiro.boot-http :refer [serve]])
 
@@ -57,13 +61,15 @@
   (task-options!
     cljs {:optimizations :none
           :source-map    true}
-    reload {:on-jsload 'wordroot.core/init!})
+    reload {:on-jsload 'wordroot.core/init!}
+    test-cljs {:js-env :phantom})
   (comp
-    (cider)))
+    (cider)
+    (test-cljs)))
 
 (deftask dev
   "Launch App with Development Profile"
   []
   (comp
-    (development)
-    (run)))
+    (run)
+    (development)))
