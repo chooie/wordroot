@@ -1,5 +1,8 @@
 (ns wordroot.components.navbar.core-test
-  (:require [cljs.test :refer-macros [deftest is testing run-tests]]))
+  (:require [cljs.test :refer-macros [deftest is testing run-tests]]
+            [wordroot.components.navbar.core :as nav]))
 
-(deftest my-test
-  (is (= 1 0)))
+(deftest test-utils
+  (testing "Returns 'active' string when page matches label"
+    (is (= "active" (nav/make-active-when-active :matches "matches")))
+    (is (= nil (nav/make-active-when-active :test "no-match")))))

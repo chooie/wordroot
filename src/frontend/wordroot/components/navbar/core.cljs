@@ -4,12 +4,11 @@
    (wordroot.constants :as constants)))
 
 (defn make-active-when-active
-  [label]
-  (let [page-keyword (session/get :page)
-        page-string  (name page-keyword)
-        to-lower     clojure.string/lower-case
-        page         (to-lower page-string)
-        label        (to-lower label)]
+  [page-keyword label]
+  (let [page-string (name page-keyword)
+        to-lower    clojure.string/lower-case
+        page        (to-lower page-string)
+        label       (to-lower label)]
     (when (= page label)
       "active")))
 
@@ -18,7 +17,7 @@
   [:li.site-link
    [:a
     {:href  (str "/" constants/secretary-prefix href)
-     :class (make-active-when-active label)}
+     :class (make-active-when-active (session/get :page) label)}
     label]])
 
 (defn navbar-component
