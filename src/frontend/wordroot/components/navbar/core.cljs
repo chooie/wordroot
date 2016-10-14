@@ -16,7 +16,7 @@
   [href label]
   [:li.site-link
    [:a
-    {:href  (str "/" constants/secretary-prefix href)
+    {:href  (str constants/secretary-prefix href)
      :class (make-active-when-active (session/get :page) label)}
     label]])
 
