@@ -10,13 +10,14 @@
                   [adzerk/boot-reload "0.4.12"]
                   ;; [adzerk/boot-test "1.1.2" :scope "test"]
                   [com.cemerick/piggieback "0.2.1"]
+                  [compojure "1.5.1"]
                   [crisptrutski/boot-cljs-test "0.2.2-SNAPSHOT"]
                   [deraen/sass4clj "0.3.0-SNAPSHOT"]
                   [deraen/boot-sass "0.3.0-SNAPSHOT"]
+                  [org.slf4j/slf4j-nop "1.7.13" :scope "test"]
                   [pandeiro/boot-http "0.7.3"]
                   [reagent "0.6.0"]
                   [reagent-utils "0.2.0"]
-                  [ring "1.5.0"]
                   [secretary "1.0.3"]
                   [weasel "0.7.0"]])
 
@@ -27,8 +28,7 @@
   ;; '[adzerk.boot-test :refer :all]
   '[crisptrutski.boot-cljs-test :refer [test-cljs]]
   '[deraen.boot-sass :refer [sass]]
-  '[pandeiro.boot-http :refer [serve]]
-  '[wordroot.core :as wordroot])
+  '[pandeiro.boot-http :refer [serve]])
 
 (deftask cider
   "CIDER profile"
@@ -53,7 +53,9 @@
 
 (deftask run []
   (comp
-    (serve :dir "target")
+    (serve
+      :handler 'wordroot.core/app
+      :reload true)
     (watch)
     (reload)
     (cljs-repl)
@@ -75,7 +77,3 @@
   (comp
     (run)
     (development)))
-
-(deftask run-test
-  []
-  (wordroot/run-test))
