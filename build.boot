@@ -1,5 +1,5 @@
 (set-env!
-  :source-paths #{"src/frontend"}
+  :source-paths #{"src/frontend" "src/backend"}
   :resource-paths #{"resources"}
 
   :dependencies '[[org.clojure/clojure "1.8.0"]
@@ -16,6 +16,7 @@
                   [pandeiro/boot-http "0.7.3"]
                   [reagent "0.6.0"]
                   [reagent-utils "0.2.0"]
+                  [ring "1.5.0"]
                   [secretary "1.0.3"]
                   [weasel "0.7.0"]])
 
@@ -26,7 +27,8 @@
   ;; '[adzerk.boot-test :refer :all]
   '[crisptrutski.boot-cljs-test :refer [test-cljs]]
   '[deraen.boot-sass :refer [sass]]
-  '[pandeiro.boot-http :refer [serve]])
+  '[pandeiro.boot-http :refer [serve]]
+  '[wordroot.core :as wordroot])
 
 (deftask cider
   "CIDER profile"
@@ -73,3 +75,7 @@
   (comp
     (run)
     (development)))
+
+(deftask run-test
+  []
+  (wordroot/run-test))
