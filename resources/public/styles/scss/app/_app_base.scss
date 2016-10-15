@@ -1,7 +1,17 @@
 @import "../colours";
+@import "../constants";
+
+#application {
+  height: 100vh;
+}
+
+.app {
+  height: 100%;
+}
 
 .page-container {
   padding: 10px;
   background: $secondary;
-  height: 90%;
+  height: calc(100% - #{$navbar-height});
+  overflow: scroll;
 }

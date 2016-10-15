@@ -1,5 +1,7 @@
+@import "../constants";
+
 .navbar {
-  height: 10%;
+  height: $navbar-height;
   padding: 10px;
   background: $primary;
   border-bottom: solid 1px #E65100;
