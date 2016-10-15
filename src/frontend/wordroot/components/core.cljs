@@ -8,13 +8,9 @@
 (defn application-component
   []
   [:div.app
-   [navbar/navbar-component]
-   [pages/page-container]])
+   [#'navbar/navbar-component]
+   [#'pages/page-container]])
 
-(defn mount-application-component
+(defn mount-root!
   []
   (r/render #'application-component constants/application-element))
-
-(defn mount-components
-  []
-  (mount-application-component))

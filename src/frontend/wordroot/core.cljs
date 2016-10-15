@@ -13,4 +13,4 @@
 
 (defn init!
   []
-  (components/mount-components))
+  (components/mount-root!))
