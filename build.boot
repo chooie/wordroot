@@ -14,6 +14,7 @@
                   [crisptrutski/boot-cljs-test "0.2.2-SNAPSHOT"]
                   [deraen/sass4clj "0.3.0-SNAPSHOT"]
                   [deraen/boot-sass "0.3.0-SNAPSHOT"]
+                  [javax.servlet/servlet-api "2.5"]
                   [org.slf4j/slf4j-nop "1.7.13" :scope "test"]
                   [pandeiro/boot-http "0.7.3"]
                   [reagent "0.6.0"]
@@ -51,24 +52,33 @@
     (cljs)
     (target :dir #{"target"})))
 
-(deftask run []
+(deftask run
+  []
   (comp
     (serve
       :handler 'wordroot.core/app
       :reload true)
     (watch)
-    (reload)
+    (reload
+      :asset-path "public"
+      :on-jsload 'wordroot.core/init!)
     (cljs-repl)
     (build)))
 
-(deftask development []
+(deftask development
+  []
   (task-options!
     cljs {:optimizations :none
           :source-map    true}
     reload {:on-jsload 'wordroot.core/init!}
-    test-cljs {:js-env :phantom})
+    test-cljs {:js-env :phantom}
+    sass {:source-map true})
   (comp
-    (cider)
+    (cider)))
+
+(deftask run-tests
+  []
+  (comp
     (test-cljs)))
 
 (deftask dev
