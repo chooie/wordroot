@@ -6,16 +6,15 @@
    [ring.middleware.resource :as resource]
    [ring.middleware.content-type :as content-type]
    [ring.middleware.not-modified :as not-modified]
-   [ring.util.response :as response]))
+   [ring.util.http-response :as http-response]
+   [ring.util.response :as response]
+   [wordroot.views :as views]))
 
 (compojure/defroutes main-routes
   (compojure/GET "/" []
-    (let [index-file-response (response/resource-response
-                                "index.html"
-                                {:root "public"})]
-      (response/content-type
-        index-file-response
-        "text/html")))
+    (->
+      (http-response/ok views/index-page)
+      (response/content-type "text/html")))
   (route/not-found "Page not found"))
 
 (def app
