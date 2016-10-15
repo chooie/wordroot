@@ -17,8 +17,9 @@
           ^{:key index}
           [:li.word
            {:on-click (fn []
-                        (reset! current-word-index-atom index)
-                        (reset! menu-is-open?-atom false))
+                        (when (not= current-index index)
+                          (reset! current-word-index-atom index)
+                          (reset! menu-is-open?-atom false)))
             :class    (when (= current-index index)
                         "active")}
            (apply str (:parts word))])
