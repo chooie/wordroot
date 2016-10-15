@@ -65,20 +65,20 @@
           "Words")]
     menu-is-open?-atom))
 
+(defonce current-word-index-atom (reagent/atom 0))
+(defonce menu-is-open?-atom      (reagent/atom false))
+
 (defn home-page
   []
-  (let [current-word-index-atom (reagent/atom 0)
-        menu-is-open?-atom      (reagent/atom false)]
-    (fn []
-      (let [words (session/get :words)
-            word  (get words @current-word-index-atom)]
-        [:div
-         [words-navbar/component words
-          current-word-index-atom
-          menu-is-open?-atom]
-         [:div.controls
-          [words-menu-toggle menu-is-open?-atom]]
-         [:h1"Home"]
-         [word-parts-header (:parts word)]
-         [:div.center
-          [:p (:description word)]]]))))
+  (let [words (session/get :words)
+        word  (get words @current-word-index-atom)]
+    [:div
+     [words-navbar/component words
+      current-word-index-atom
+      menu-is-open?-atom]
+     [:div.controls
+      [words-menu-toggle menu-is-open?-atom]]
+     [:h1"Home"]
+     [word-parts-header (:parts word)]
+     [:div.center
+      [:p (:description word)]]]))
