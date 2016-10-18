@@ -20,7 +20,7 @@
                   [mbuczko/boot-ragtime "0.2.0"]
                   [metosin/ring-http-response "0.8.0"]
                   [org.clojure/java.jdbc "0.6.2-alpha3"]
-                  [org.postgresql/postgresql "9.4.1211.jre7"]
+                  [org.postgresql/postgresql "9.4.1211"]
                   [org.slf4j/slf4j-nop "1.7.13" :scope "test"]
                   [pandeiro/boot-http "0.7.3"]
                   [reagent "0.6.0"]
@@ -39,8 +39,13 @@
   '[pandeiro.boot-http :refer [serve]]
   '[wordroot.db :as db])
 
-(task-options!
-  ragtime {:database (:connection-uri db/postgres-uri)})
+#_(task-options!
+    cljs {:optimizations :none
+          :source-map    true}
+    ragtime {:database (:connection-uri db/postgres-uri)}
+    sass {:source-map true}
+    reload {:on-jsload 'wordroot.core/init!}
+    test-cljs {:js-env :phantom})
 
 (deftask cider
   "CIDER profile"
@@ -78,12 +83,6 @@
 
 (deftask development
   []
-  (task-options!
-    cljs {:optimizations :none
-          :source-map    true}
-    reload {:on-jsload 'wordroot.core/init!}
-    test-cljs {:js-env :phantom}
-    sass {:source-map true})
   (comp
     (cider)))
 
