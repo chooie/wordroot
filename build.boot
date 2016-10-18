@@ -4,6 +4,7 @@
 
   :dependencies '[[org.clojure/clojure "1.8.0"]
                   [org.clojure/clojurescript "1.7.228"]
+                  [org.clojure/java.jdbc "0.6.2-alpha3"]
                   [org.clojure/tools.nrepl "0.2.12"]
                   [adzerk/boot-cljs "1.7.228-1"]
                   [adzerk/boot-cljs-repl "0.3.2"]
@@ -16,7 +17,10 @@
                   [deraen/boot-sass "0.3.0-SNAPSHOT"]
                   [hiccup "1.0.5"]
                   [javax.servlet/servlet-api "2.5"]
+                  [mbuczko/boot-ragtime "0.2.0"]
                   [metosin/ring-http-response "0.8.0"]
+                  [org.clojure/java.jdbc "0.6.2-alpha3"]
+                  [org.postgresql/postgresql "9.4.1211.jre7"]
                   [org.slf4j/slf4j-nop "1.7.13" :scope "test"]
                   [pandeiro/boot-http "0.7.3"]
                   [reagent "0.6.0"]
@@ -31,7 +35,9 @@
   ;; '[adzerk.boot-test :refer :all]
   '[crisptrutski.boot-cljs-test :refer [test-cljs]]
   '[deraen.boot-sass :refer [sass]]
-  '[pandeiro.boot-http :refer [serve]])
+  '[mbuczko.boot-ragtime :refer [ragtime]]
+  '[pandeiro.boot-http :refer [serve]]
+  '[wordroot.db :as db])
 
 (deftask cider
   "CIDER profile"
@@ -89,3 +95,15 @@
   (comp
     (run)
     (development)))
+
+(defn load-migration-config!
+  []
+  (println (:connection-uri db/postgres-uri))
+  (task-options!
+    ragtime {:database (:connection-uri db/postgres-uri)}))
+
+(deftask run-migrations!
+  []
+  (load-migration-config!)
+  (comp
+    (ragtime :migrate true)))
