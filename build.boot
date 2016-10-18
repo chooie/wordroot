@@ -39,6 +39,9 @@
   '[pandeiro.boot-http :refer [serve]]
   '[wordroot.db :as db])
 
+(task-options!
+  ragtime {:database (:connection-uri db/postgres-uri)})
+
 (deftask cider
   "CIDER profile"
   []
@@ -98,9 +101,7 @@
 
 (defn load-migration-config!
   []
-  (println (:connection-uri db/postgres-uri))
-  (task-options!
-    ragtime {:database (:connection-uri db/postgres-uri)}))
+  (println (:connection-uri db/postgres-uri)))
 
 (deftask run-migrations!
   []
