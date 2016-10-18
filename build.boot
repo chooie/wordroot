@@ -2,11 +2,7 @@
   :source-paths #{"src/frontend" "src/backend"}
   :resource-paths #{"resources"}
 
-  :dependencies '[[org.clojure/clojure "1.8.0"]
-                  [org.clojure/clojurescript "1.7.228"]
-                  [org.clojure/java.jdbc "0.6.2-alpha3"]
-                  [org.clojure/tools.nrepl "0.2.12"]
-                  [adzerk/boot-cljs "1.7.228-1"]
+  :dependencies '[[adzerk/boot-cljs "1.7.228-1"]
                   [adzerk/boot-cljs-repl "0.3.2"]
                   [adzerk/boot-reload "0.4.12"]
                   ;; [adzerk/boot-test "1.1.2" :scope "test"]
@@ -17,12 +13,15 @@
                   [deraen/boot-sass "0.3.0-SNAPSHOT"]
                   [hiccup "1.0.5"]
                   [javax.servlet/servlet-api "2.5"]
-                  [mbuczko/boot-ragtime "0.2.0"]
                   [metosin/ring-http-response "0.8.0"]
+                  [org.clojure/clojure "1.8.0"]
+                  [org.clojure/clojurescript "1.7.228"]
                   [org.clojure/java.jdbc "0.6.2-alpha3"]
+                  [org.clojure/tools.nrepl "0.2.12"]
                   [org.postgresql/postgresql "9.4.1211"]
                   [org.slf4j/slf4j-nop "1.7.13" :scope "test"]
                   [pandeiro/boot-http "0.7.3"]
+                  [ragtime "0.6.3"]
                   [reagent "0.6.0"]
                   [reagent-utils "0.2.0"]
                   [secretary "1.0.3"]
@@ -35,17 +34,15 @@
   ;; '[adzerk.boot-test :refer :all]
   '[crisptrutski.boot-cljs-test :refer [test-cljs]]
   '[deraen.boot-sass :refer [sass]]
-  '[mbuczko.boot-ragtime :refer [ragtime]]
   '[pandeiro.boot-http :refer [serve]]
   '[wordroot.db :as db])
 
-#_(task-options!
-    cljs {:optimizations :none
-          :source-map    true}
-    ragtime {:database (:connection-uri db/postgres-uri)}
-    sass {:source-map true}
-    reload {:on-jsload 'wordroot.core/init!}
-    test-cljs {:js-env :phantom})
+(task-options!
+  cljs {:optimizations :none
+        :source-map    true}
+  sass {:source-map true}
+  reload {:on-jsload 'wordroot.core/init!}
+  test-cljs {:js-env :phantom})
 
 (deftask cider
   "CIDER profile"
@@ -100,10 +97,8 @@
 
 (defn load-migration-config!
   []
-  (println (:connection-uri db/postgres-uri)))
+  #_(println (:connection-uri db/postgres-uri)))
 
 (deftask run-migrations!
   []
-  (load-migration-config!)
-  (comp
-    (ragtime :migrate true)))
+  (load-migration-config!))

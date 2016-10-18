@@ -1,9 +1,7 @@
 (ns wordroot.db
-  (:require [clojure.java.jdbc :as jdbc]))
-
-#_(str
-    "postgresql://wordroot_user:weak_password"
-    "@localhost:5432/wordroot_database")
+  (:require
+   [ragtime.jdbc :as jdbc]
+   [ragtime.repl :as ragtime-repl]))
 
 (def db
   {:classname   "org.postgresql.Driver"
@@ -12,7 +10,14 @@
    :username    "wordroot_user"
    :password    "weak_password"})
 
-(def postgres-uri
-  {:connection-uri "jdbc:postgresql://localhost:5432/wordroot_database?user=wordroot_user&password=weak_password"})
+(def config
+  {:datastore  (jdbc/sql-database {:connection-uri "jdbc:postgresql://localhost:5432/wordroot_database?user=wordroot_user&password=weak_password"})
+   :migrations (jdbc/load-resources "migrations")})
 
-#_(println (jdbc/query db ["SELECT * FROM foo"]))
+(defn rollback!
+  []
+  (ragtime-repl/rollback config))
+
+(defn migrate!
+  []
+  (ragtime-repl/migrate config))
