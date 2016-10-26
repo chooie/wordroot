@@ -97,8 +97,20 @@
 
 (defn load-migration-config!
   []
-  #_(println (:connection-uri db/postgres-uri)))
+  (println (:datastore db/config)))
 
 (deftask run-migrations!
   []
-  (load-migration-config!))
+  (fn [next-handler]
+    (fn [fileset]
+      (load-migration-config!)
+      (db/migrate!)
+      (next-handler fileset))))
+
+(deftask rollback-migrations!
+  []
+  (fn [next-handler]
+    (fn [fileset]
+      (load-migration-config!)
+      (db/rollback!)
+      (next-handler fileset))))
