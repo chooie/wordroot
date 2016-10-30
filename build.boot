@@ -7,6 +7,7 @@
                   [adzerk/boot-reload "0.4.12"]
                   ;; [adzerk/boot-test "1.1.2" :scope "test"]
                   [com.cemerick/piggieback "0.2.1"]
+                  [com.layerware/hugsql "0.4.7"]
                   [compojure "1.5.1"]
                   [crisptrutski/boot-cljs-test "0.2.2-SNAPSHOT"]
                   [deraen/sass4clj "0.3.0-SNAPSHOT"]
@@ -35,7 +36,7 @@
   '[crisptrutski.boot-cljs-test :refer [test-cljs]]
   '[deraen.boot-sass :refer [sass]]
   '[pandeiro.boot-http :refer [serve]]
-  '[wordroot.db :as db])
+  '[wordroot.db.core :as db])
 
 (task-options!
   cljs {:optimizations :none

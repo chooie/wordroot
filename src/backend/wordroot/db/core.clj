@@ -1,7 +1,8 @@
-(ns wordroot.db
+(ns wordroot.db.core
   (:require
    [ragtime.jdbc :as jdbc]
-   [ragtime.repl :as ragtime-repl]))
+   [ragtime.repl :as ragtime-repl]
+   [wordroot.db.words :as words]))
 
 (def db
   {:classname   "org.postgresql.Driver"
@@ -21,3 +22,13 @@
 (defn migrate!
   []
   (ragtime-repl/migrate config))
+
+(defn seed-words!
+  []
+  (words/insert-words!
+    db
+    {:words
+     [["mytestword"
+       "This is my test word's description"]
+      ["thisisaword"
+       "Just another word"]]}))
