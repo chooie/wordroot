@@ -1,4 +1,4 @@
--- :name insert-word-part-and-root-association! :! :n
+-- :name insert-word-part-and-root-association! :insert
 -- :doc Insert an association between a word part and root
 INSERT INTO word_parts_roots (word_part_id, root_id)
 VALUES (:word_part_id, :root_id);

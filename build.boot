@@ -9,6 +9,7 @@
                   [com.cemerick/piggieback "0.2.1"]
                   [com.layerware/hugsql "0.4.7"]
                   [compojure "1.5.1"]
+                  [conman "0.6.2"]
                   [crisptrutski/boot-cljs-test "0.2.2-SNAPSHOT"]
                   [deraen/sass4clj "0.3.0-SNAPSHOT"]
                   [deraen/boot-sass "0.3.0-SNAPSHOT"]

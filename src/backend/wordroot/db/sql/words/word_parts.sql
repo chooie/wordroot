@@ -1,4 +1,4 @@
--- :name insert-word-part! :! :n
+-- :name insert-word-part! :insert
 -- :doc Insert a word part
 INSERT INTO word_parts (word_id, part, position_index)
 VALUES (:word_id, :part, :position_index);

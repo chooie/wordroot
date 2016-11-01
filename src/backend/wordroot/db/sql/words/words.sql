@@ -1,4 +1,4 @@
--- :name insert-word! :! :n
+-- :name insert-word! :insert
 -- :doc Insert a word
 INSERT INTO words (word, meaning)
 VALUES (:word, :meaning);

@@ -1,4 +1,4 @@
--- :name insert-language! :! :n
+-- :name insert-language! :insert
 -- :doc Insert a language
 INSERT INTO languages (name)
 VALUES (:name);
