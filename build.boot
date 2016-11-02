@@ -38,7 +38,8 @@
   '[deraen.boot-sass :refer [sass]]
   '[pandeiro.boot-http :refer [serve]]
   '[wordroot.db.config :as db-config]
-  '[wordroot.db.migration-management :as migration-management])
+  '[wordroot.db.migration-management :as migration-management]
+  '[wordroot.db.seed-management :as seed-management])
 
 (task-options!
   cljs {:optimizations :none
@@ -81,15 +82,16 @@
     (cljs-repl)
     (build)))
 
-(deftask development
-  []
-  (comp
-    (cider)))
-
-(deftask run-tests
+(deftask run-frontend-tests
   []
   (comp
     (test-cljs)))
+
+(deftask development
+  []
+  (comp
+    (cider)
+    (run-frontend-tests)))
 
 (deftask dev
   "Launch App with Development Profile"
@@ -108,6 +110,7 @@
     (fn [fileset]
       (load-migration-config!)
       (migration-management/migrate!)
+      (println "Ran migrations...")
       (next-handler fileset))))
 
 (deftask rollback-migrations!
@@ -116,4 +119,13 @@
     (fn [fileset]
       (load-migration-config!)
       (migration-management/rollback!)
+      (println "Migrations rolled back...")
+      (next-handler fileset))))
+
+(deftask seed-database!
+  []
+  (fn [next-handler]
+    (fn[fileset]
+      (seed-management/seed-database!)
+      (println "Database seeded...")
       (next-handler fileset))))
