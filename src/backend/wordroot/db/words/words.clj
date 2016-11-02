@@ -1,4 +1,4 @@
-(ns wordroot.db.words
+(ns wordroot.db.words.words
   (:require
    [wordroot.db.config :as db-config]
    [conman.core :as conman]

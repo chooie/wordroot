@@ -37,7 +37,8 @@
   '[crisptrutski.boot-cljs-test :refer [test-cljs]]
   '[deraen.boot-sass :refer [sass]]
   '[pandeiro.boot-http :refer [serve]]
-  '[wordroot.db.core :as db])
+  '[wordroot.db.config :as db-config]
+  '[wordroot.db.migration-management :as migration-management])
 
 (task-options!
   cljs {:optimizations :none
@@ -99,14 +100,14 @@
 
 (defn load-migration-config!
   []
-  (println (:datastore db/config)))
+  (println db-config/jdbc-url))
 
 (deftask run-migrations!
   []
   (fn [next-handler]
     (fn [fileset]
       (load-migration-config!)
-      (db/migrate!)
+      (migration-management/migrate!)
       (next-handler fileset))))
 
 (deftask rollback-migrations!
@@ -114,5 +115,5 @@
   (fn [next-handler]
     (fn [fileset]
       (load-migration-config!)
-      (db/rollback!)
+      (migration-management/rollback!)
       (next-handler fileset))))
