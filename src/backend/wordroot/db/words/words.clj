@@ -22,6 +22,7 @@
     (if (nil? language-id)
       (persist-language-and-return-id! language)
       language-id)))
+
 (defn insert-part!
   [word-id index {:keys [part root]}]
   (let [part-result (insert-word-part!
