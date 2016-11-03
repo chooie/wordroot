@@ -122,10 +122,10 @@
       (println "Migrations rolled back...")
       (next-handler fileset))))
 
-#_(deftask seed-database!
-    []
-    (fn [next-handler]
-      (fn[fileset]
-        (seed-management/seed-database!)
-        (println "Database seeded...")
-        (next-handler fileset))))
+(deftask seed-database!
+  []
+  (fn [next-handler]
+    (fn[fileset]
+      (seed-management/seed-database!)
+      (println "Database seeded...")
+      (next-handler fileset))))

@@ -46,10 +46,11 @@
 
 (defn insert-parts!
   [word-id parts]
-  (map-indexed
-    (fn [index part]
-      (insert-part! word-id index part))
-    parts))
+  (doall
+    (map-indexed
+      (fn [index part]
+        (insert-part! word-id index part))
+      parts)))
 
 (defn persist-word!
   [{:keys [word meaning parts]}]
