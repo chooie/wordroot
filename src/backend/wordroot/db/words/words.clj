@@ -16,12 +16,24 @@
   (let [language-result (insert-language! {:name language})]
     (:id language-result)))
 
-(defn get-existing-language-id-or-persist-entry
+(defn get-existing-language-id-or-persist-entry!
   [language]
-  (let [language-id (get-language-id-by-name {:name language})]
-    (if (nil? language-id)
+  (let [language-result (get-language-by-name {:name language})]
+    (if (nil? language-result)
       (persist-language-and-return-id! language)
-      language-id)))
+      (:id language-result))))
+
+(defn persist-root-and-return-id!
+  [root]
+  (let [root-result (insert-root! root)]
+    (:id root-result)))
+
+(defn get-existing-root-id-or-persist-root!
+  [root]
+  (let [root-result (get-root-by-word {:word (:word root)})]
+    (if (nil? root-result)
+      (persist-root-and-return-id! root)
+      (:id root-result))))
 
 (defn insert-part!
   [word-id index {:keys [part root]}]
@@ -30,14 +42,14 @@
                        :part           part
                        :position_index index})]
     (if root
-      (let [root-language-id          (get-existing-language-id-or-persist-entry
+      (let [part-id                   (:id part-result)
+            root-language-id          (get-existing-language-id-or-persist-entry!
                                         (:language root))
-            root-result               (insert-root!
-                                        {:word        (:word root)
-                                         :meaning     (:meaning root)
-                                         :language_id root-language-id})
-            part-id                   (:id part-result)
-            root-id                   (:id root-result)
+            root-less-language        (dissoc root :language)
+            root-with-language-id     (assoc root-less-language
+                                        :language_id root-language-id)
+            root-id                   (get-existing-root-id-or-persist-root!
+                                        root-with-language-id)
             root-part-relation-result (insert-word-part-and-root-association!
                                         {:word_part_id part-id
                                          :root_id      root-id})]

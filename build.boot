@@ -129,3 +129,10 @@
       (seed-management/seed-database!)
       (println "Database seeded...")
       (next-handler fileset))))
+
+(deftask reset-database-and-seed!
+  []
+  (comp
+    (rollback-migrations!)
+    (run-migrations!)
+    (seed-database!)))

@@ -8,7 +8,7 @@ VALUES (:name);
 SELECT * FROM languages
 WHERE id = :id;
 
--- :name get-language-id-by-name :? :1
+-- :name get-language-by-name :? :1
 -- :doc Get language id with the given name
 SELECT * FROM languages
 WHERE name = :name;
