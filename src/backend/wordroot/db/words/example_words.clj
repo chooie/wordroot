@@ -31,4 +31,18 @@
               {:part "word"
                :root {:word     "root3"
                       :meaning  "meaning3"
+                      :language "language3"}}]}
+   {:word    "reallylengthyword"
+    :meaning "A really lengthy word description"
+    :parts   [{:part "really"
+               :root {:word     "root2"
+                      :meaning  "meaning2"
+                      :language "language2"}}
+              {:part "lengthy"
+               :root {:word     "root6"
+                      :meaning  "meaning6"
+                      :language "language6"}}
+              {:part "word"
+               :root {:word     "root3"
+                      :meaning  "meaning3"
                       :language "language3"}}]}])
