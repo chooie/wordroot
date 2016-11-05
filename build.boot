@@ -33,7 +33,7 @@
   '[adzerk.boot-cljs :refer [cljs]]
   '[adzerk.boot-cljs-repl :refer [cljs-repl start-repl]]
   '[adzerk.boot-reload :refer [reload]]
-  '[adzerk.boot-test :refer :all]
+  '[adzerk.boot-test :as boot-test-clj :refer [test]]
   '[crisptrutski.boot-cljs-test :refer [test-cljs]]
   '[deraen.boot-sass :refer [sass]]
   '[pandeiro.boot-http :refer [serve]]
@@ -81,6 +81,11 @@
       :on-jsload 'wordroot.core/init!)
     (cljs-repl)
     (build)))
+
+#_(deftask run-backend-tests
+    []
+    (comp
+      (boot-test-clj/test)))
 
 (deftask run-frontend-tests
   []
