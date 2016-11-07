@@ -33,39 +33,21 @@
   '[adzerk.boot-cljs :refer [cljs]]
   '[adzerk.boot-cljs-repl :refer [cljs-repl start-repl]]
   '[adzerk.boot-reload :refer [reload]]
-  '[adzerk.boot-test :as boot-test-clj :refer [test]]
-  '[crisptrutski.boot-cljs-test :refer [test-cljs]]
   '[deraen.boot-sass :refer [sass]]
   '[pandeiro.boot-http :refer [serve]]
-  '[wordroot-tasks.db :as wordroot-db])
-
-(task-options!
-  cljs {:optimizations :none
-        :source-map    true}
-  sass {:source-map true}
-  reload {:on-jsload 'wordroot.core/init!}
-  test {:filters '#{ (.contains (str (.-ns %)) "-test") }}
-  test-cljs {:js-env :phantom})
-
-(deftask cider
-  "CIDER profile"
-  []
-  (require 'boot.repl)
-  (swap! @(resolve 'boot.repl/*default-dependencies*)
-    concat '[[org.clojure/tools.nrepl "0.2.12"]
-             [cider/cider-nrepl "0.13.0"]
-             [refactor-nrepl "2.2.0"]])
-  (swap! @(resolve 'boot.repl/*default-middleware*)
-    concat '[cider.nrepl/cider-middleware
-             refactor-nrepl.middleware/wrap-refactor])
-  identity)
+  '[wordroot-tasks.db :as wordroot-db]
+  '[wordroot-tasks.ide-integration :as wordroot-ide-integration]
+  '[wordroot-tasks.test :as wordroot-test])
 
 (deftask build
   []
   (comp
     (speak)
-    (sass)
-    (cljs)
+    (sass
+      :source-map true)
+    (cljs
+      :optimizations :none
+      :source-map    true)
     (target :dir #{"target"})))
 
 (deftask run
@@ -81,22 +63,11 @@
     (cljs-repl)
     (build)))
 
-#_(deftask run-backend-tests
-    []
-    (comp
-      (boot-test-clj/test
-        :filters '#{ (.contains (str (.-ns %)) "-test") })))
-
-(deftask run-frontend-tests
-  []
-  (comp
-    (test-cljs)))
-
 (deftask development
   []
   (comp
-    (cider)
-    (run-frontend-tests)))
+    (wordroot-ide-integration/cider)
+    (wordroot-test/run-frontend-tests)))
 
 (deftask dev
   "Launch App with Development Profile"
