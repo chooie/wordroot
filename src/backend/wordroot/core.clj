@@ -23,3 +23,7 @@
     (resource/wrap-resource "public")
     (content-type/wrap-content-type)
     (not-modified/wrap-not-modified)))
+
+(defn foo
+  []
+  (println "foo!"))

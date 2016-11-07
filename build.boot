@@ -1,5 +1,5 @@
 (set-env!
-  :source-paths #{"src/frontend" "src/backend"}
+  :source-paths #{"src/frontend" "src/backend" "boot_tasks"}
   :resource-paths #{"resources"}
 
   :dependencies '[[adzerk/boot-cljs "1.7.228-1"]
@@ -37,15 +37,14 @@
   '[crisptrutski.boot-cljs-test :refer [test-cljs]]
   '[deraen.boot-sass :refer [sass]]
   '[pandeiro.boot-http :refer [serve]]
-  '[wordroot.db.config :as db-config]
-  '[wordroot.db.migration-management :as migration-management]
-  '[wordroot.db.seed-management :as seed-management])
+  '[wordroot-tasks.db :as wordroot-db])
 
 (task-options!
   cljs {:optimizations :none
         :source-map    true}
   sass {:source-map true}
   reload {:on-jsload 'wordroot.core/init!}
+  test {:filters '#{ (.contains (str (.-ns %)) "-test") }}
   test-cljs {:js-env :phantom})
 
 (deftask cider
@@ -85,7 +84,8 @@
 #_(deftask run-backend-tests
     []
     (comp
-      (boot-test-clj/test)))
+      (boot-test-clj/test
+        :filters '#{ (.contains (str (.-ns %)) "-test") })))
 
 (deftask run-frontend-tests
   []
@@ -104,40 +104,3 @@
   (comp
     (run)
     (development)))
-
-(defn load-migration-config!
-  []
-  (println db-config/jdbc-url))
-
-(deftask run-migrations!
-  []
-  (fn [next-handler]
-    (fn [fileset]
-      (load-migration-config!)
-      (migration-management/migrate!)
-      (println "Ran migrations...")
-      (next-handler fileset))))
-
-(deftask rollback-migrations!
-  []
-  (fn [next-handler]
-    (fn [fileset]
-      (load-migration-config!)
-      (migration-management/rollback!)
-      (println "Migrations rolled back...")
-      (next-handler fileset))))
-
-(deftask seed-database!
-  []
-  (fn [next-handler]
-    (fn[fileset]
-      (seed-management/seed-database!)
-      (println "Database seeded...")
-      (next-handler fileset))))
-
-(deftask reset-database-and-seed!
-  []
-  (comp
-    (rollback-migrations!)
-    (run-migrations!)
-    (seed-database!)))
