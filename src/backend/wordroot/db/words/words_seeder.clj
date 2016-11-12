@@ -1,12 +1,12 @@
 (ns wordroot.db.words.words-seeder
   (:require
-   [conman.core :as conman]
-   [wordroot.db.config :as db-config]
-   [wordroot.db.words.example-words :as example-words]
+   [clojure.java.jdbc :as jdbc]
    [wordroot.db.words.words :as words]))
 
 (defn seed!
-  []
-  (conman/with-transaction [db-config/*db*]
+  [db-connection words]
+  (jdbc/with-db-transaction [transaction-connection db-connection]
     (doall
-      (map words/persist-word! example-words/words))))
+      (map (fn [word]
+             (words/persist-word! transaction-connection word))
+        words))))

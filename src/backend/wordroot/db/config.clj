@@ -1,18 +1,16 @@
-(ns wordroot.db.config
-  (:require [conman.core :as conman]))
+(ns wordroot.db.config)
 
-(def jdbc-url
-  (str
-    "jdbc:postgresql://"
-    "localhost:5432/wordroot_database?"
-    "user=wordroot_user&"
-    "password=weak_password"))
+(def postgres-db
+  {:dbtype   "postgresql"
+   :dbname   "wordroot_database"
+   :host     "localhost"
+   :user     "wordroot_user"
+   :password "weak_password"})
 
-(def pool-spec
-  {:init-size  1
-   :min-idle   1
-   :max-idle   4
-   :max-active 32
-   :jdbc-url   jdbc-url})
-
-(def ^:dynamic *db* (conman/connect! pool-spec))
+(def ragtime-postgres-uri
+  (let [{:keys [dbtype dbname host user password]} postgres-db]
+    (str
+      "jdbc:" dbtype "://"
+      host ":5432/" dbname "?"
+      "user=" user "&"
+      "password=" password)))

@@ -6,7 +6,7 @@
 
 (def ragtime-config
   {:datastore  (ragtime-jdbc/sql-database
-                 {:connection-uri db-config/jdbc-url})
+                 {:connection-uri db-config/ragtime-postgres-uri})
    :migrations (ragtime-jdbc/load-resources "migrations")})
 
 (defn rollback!

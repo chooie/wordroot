@@ -1,5 +1,5 @@
 (set-env!
-  :source-paths #{"src/frontend" "src/backend" "boot_tasks"}
+  :source-paths #{"boot_tasks" "src/backend" "src/frontend"}
   :resource-paths #{"resources"}
 
   :dependencies '[[adzerk/boot-cljs "1.7.228-1"]
@@ -8,8 +8,8 @@
                   [adzerk/boot-test "1.1.2" :scope "test"]
                   [com.cemerick/piggieback "0.2.1"]
                   [com.layerware/hugsql "0.4.7"]
+                  [com.stuartsierra/component "0.3.1"]
                   [compojure "1.5.1"]
-                  [conman "0.6.2"]
                   [crisptrutski/boot-cljs-test "0.2.2-SNAPSHOT"]
                   [deraen/sass4clj "0.3.0-SNAPSHOT"]
                   [deraen/boot-sass "0.3.0-SNAPSHOT"]
@@ -19,6 +19,7 @@
                   [org.clojure/clojure "1.8.0"]
                   [org.clojure/clojurescript "1.7.228"]
                   [org.clojure/java.jdbc "0.6.2-alpha3"]
+                  [org.clojure/tools.namespace "0.2.11"]
                   [org.clojure/tools.nrepl "0.2.12"]
                   [org.postgresql/postgresql "9.4.1211"]
                   [org.slf4j/slf4j-nop "1.7.13" :scope "test"]
@@ -35,6 +36,7 @@
   '[adzerk.boot-reload :refer [reload]]
   '[deraen.boot-sass :refer [sass]]
   '[pandeiro.boot-http :refer [serve]]
+  '[wordroot-tasks.dev :as wordroot-dev]
   '[wordroot-tasks.db :as wordroot-db]
   '[wordroot-tasks.ide-integration :as wordroot-ide-integration]
   '[wordroot-tasks.test :as wordroot-test])

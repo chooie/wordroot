@@ -1,14 +1,31 @@
-(ns wordroot.dev.core
+(ns wordroot-tasks.dev
   (:require
-   [wordroot.core :as wr]
-   [boot.core :as boot]))
+   [boot.core :as boot]
+   [clojure.tools.namespace.repl :as repl]
+   [com.stuartsierra.component :as component]
+   [wordroot.core :as wr]))
 
-(defn hey
-  []
-  (println "hey!")
-  (wr/foo))
+(def system (atom nil))
 
-(boot/deftask my-task
+(defn init
   []
-  (boot/with-pass-thru fileset
-    (println "hey")))
+  (reset! system (wr/wordroot-system)))
+
+(defn start
+  []
+  (component/start @system))
+
+(defn stop
+  []
+  (when @system
+    (component/stop @system)))
+
+(defn go
+  []
+  (init)
+  (start))
+
+(defn reset
+  []
+  (stop)
+  (repl/refresh :after go))
