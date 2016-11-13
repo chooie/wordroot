@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>adzerk</groupId>
+  <artifactId>boot-reload</artifactId>
+  <version>0.4.12</version>
+  <name>boot-reload</name>
+  <description>Boot task to automatically reload page resources in the browser.</description>
+  <url>https://github.com/adzerk/boot-reload</url>
+  <licenses>
+    <license>
+      <url>http://www.eclipse.org/legal/epl-v10.html</url>
+      <name>Eclipse Public License</name>
+      <comments/>
+    </license>
+  </licenses>
+  <packaging>jar</packaging>
+  <scm>
+    <url>https://github.com/adzerk/boot-reload</url>
+    <tag>2c368f7c4563e423b9c84033b4829232a2ec5a87</tag>
+  </scm>
+  <dependencies>
+    <dependency>
+      <groupId>org.clojure</groupId>
+      <artifactId>clojure</artifactId>
+      <version>1.8.0</version>
+      <scope>provided</scope>
+      <exclusions/>
+    </dependency>
+    <dependency>
+      <groupId>http-kit</groupId>
+      <artifactId>http-kit</artifactId>
+      <version>2.1.19</version>
+      <scope>test</scope>
+      <exclusions/>
+    </dependency>
+    <dependency>
+      <groupId>adzerk</groupId>
+      <artifactId>boot-test</artifactId>
+      <version>1.1.0</version>
+      <scope>test</scope>
+      <exclusions/>
+    </dependency>
+  </dependencies>
+</project>
