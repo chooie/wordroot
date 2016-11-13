@@ -14,6 +14,7 @@
                   [deraen/sass4clj "0.3.0-SNAPSHOT"]
                   [deraen/boot-sass "0.3.0-SNAPSHOT"]
                   [hiccup "1.0.5"]
+                  [http-kit "2.2.0"]
                   [javax.servlet/servlet-api "2.5"]
                   [metosin/ring-http-response "0.8.0"]
                   [org.clojure/clojure "1.8.0"]
@@ -23,7 +24,6 @@
                   [org.clojure/tools.nrepl "0.2.12"]
                   [org.postgresql/postgresql "9.4.1211"]
                   [org.slf4j/slf4j-nop "1.7.13" :scope "test"]
-                  [pandeiro/boot-http "0.7.3"]
                   [ragtime "0.6.3"]
                   [reagent "0.6.0"]
                   [reagent-utils "0.2.0"]
@@ -35,7 +35,6 @@
   '[adzerk.boot-cljs-repl :refer [cljs-repl start-repl]]
   '[adzerk.boot-reload :refer [reload]]
   '[deraen.boot-sass :refer [sass]]
-  '[pandeiro.boot-http :refer [serve]]
   '[wordroot-tasks.dev :as wordroot-dev]
   '[wordroot-tasks.db :as wordroot-db]
   '[wordroot-tasks.ide-integration :as wordroot-ide-integration]
@@ -55,9 +54,6 @@
 (deftask run
   []
   (comp
-    (serve
-      :handler 'wordroot.core/app
-      :reload true)
     (watch)
     (reload
       :asset-path "public"

@@ -4,6 +4,7 @@
    [compojure.core :as compojure]
    [compojure.route :as route]
    [compojure.handler :as handler]
+   [org.httpkit.server :as httpkit-server]
    [ring.middleware.resource :as resource]
    [ring.middleware.content-type :as content-type]
    [ring.middleware.not-modified :as not-modified]
@@ -28,10 +29,30 @@
     (content-type/wrap-content-type)
     (not-modified/wrap-not-modified)))
 
+(defrecord WebServer [port]
+  component/Lifecycle
+
+  (start [component]
+    (when (nil? (:server component))
+      (println (str "Starting server on port: " port))
+      (assoc component :server (httpkit-server/run-server #'app {:port port}))))
+
+  (stop [component]
+    (when (:server component)
+      (let [shutdown-fn (:server component)]
+        (println "Shutting down server")
+        (shutdown-fn)
+        (assoc component :server nil)))))
+
+(defn get-web-server
+  [port]
+  (->WebServer port))
+
 (defn wordroot-system
   []
   (let [system-map            (component/system-map
-                                :db (db/new-db db-config/postgres-db))
+                                :db (db/new-db db-config/postgres-db)
+                                :server (get-web-server 8000))
         system-dependency-map (component/system-using system-map
                                 {})]
     system-dependency-map))

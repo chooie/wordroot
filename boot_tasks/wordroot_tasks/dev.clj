@@ -7,25 +7,25 @@
 
 (def system (atom nil))
 
-(defn init
+(defn- init
   []
   (reset! system (wr/wordroot-system)))
 
-(defn start
+(defn- start
   []
-  (component/start @system))
+  (reset! system (component/start @system)))
 
-(defn stop
+(defn- stop
   []
   (when @system
-    (component/stop @system)))
+    (reset! system (component/stop @system))))
 
 (defn go
   []
+  (stop)
   (init)
   (start))
 
 (defn reset
   []
-  (stop)
-  (repl/refresh :after go))
+  (repl/refresh :after 'wordroot-tasks.dev/go))

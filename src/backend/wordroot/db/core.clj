@@ -7,11 +7,11 @@
   component/Lifecycle
 
   (start [component]
-    (println ";; Starting database")
+    (println "Starting database")
     (assoc component :connection connection))
 
   (stop [component]
-    (println ";; Stopping database")
+    (println "Stopping database")
     (assoc component :connection nil)))
 
 (defn new-db
