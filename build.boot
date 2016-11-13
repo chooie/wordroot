@@ -27,6 +27,8 @@
                   [ragtime "0.6.3"]
                   [reagent "0.6.0"]
                   [reagent-utils "0.2.0"]
+                  [ring "1.5.0"]
+                  [ring/ring-json "0.4.0"]
                   [secretary "1.0.3"]
                   [weasel "0.7.0"]])
 
