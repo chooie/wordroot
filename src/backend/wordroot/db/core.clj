@@ -15,5 +15,5 @@
     (assoc component :connection nil)))
 
 (defn new-db
-  [pool-spec]
-  (->Database pool-spec))
+  [connection]
+  (map->Database {:connection connection}))
