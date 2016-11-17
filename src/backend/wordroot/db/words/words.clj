@@ -75,3 +75,50 @@
                         {:word word :meaning meaning})
           word-id     (:id word-result)]
       (insert-parts! db-connection word-id parts))))
+
+(defn get-word-by-word-name
+  [db-connection word-name]
+  (jdbc/with-db-transaction [transaction-connection db-connection]
+    (let [word    (get-word transaction-connection {:word word-name})
+          word-id (:id word)
+          parts   (get-word-parts-for-word-id transaction-connection
+                    {:word_id word-id})
+
+          part-ids-to-root-ids
+          (doall
+            (map
+              (fn [{:keys [id]}]
+                (get-word-part-and-root-association-for-word-part-id
+                  transaction-connection
+                  {:word_part_id id}))
+              parts))
+
+          roots     (doall
+                      (map (fn [{:keys [root_id]}]
+                             (when root_id
+                               (get-root-by-id
+                                 transaction-connection
+                                 {:id root_id})))
+                        part-ids-to-root-ids))
+          languages (doall
+                      (map
+                        (fn [{:keys [language_id]}]
+                          (when language_id
+                            (get-language-by-id
+                              transaction-connection
+                              {:id language_id})))
+                        roots))
+
+          roots-with-language-resolved
+          (map (fn [root {:keys [name] :as language}]
+                 (when root
+                   (let [root-less-lang-id (dissoc root :language_id)]
+                     (assoc root-less-lang-id :language name))))
+            roots languages)
+
+          parts-with-roots          (mapv
+                                      (fn [part root]
+                                        (assoc part :root root))
+                                      parts roots-with-language-resolved)
+          word-with-parts-and-roots (assoc word :parts parts-with-roots)]
+      word-with-parts-and-roots)))

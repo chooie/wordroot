@@ -7,3 +7,8 @@ VALUES (:word, :meaning, :language_id);
 -- :doc Get root id by the given word
 SELECT * FROM roots
 WHERE word = :word;
+
+-- :name get-root-by-id :? :1
+-- :doc Get root with the given id
+SELECT * from roots
+WHERE id = :id
