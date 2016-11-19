@@ -5,11 +5,12 @@
    [compojure.route :as compojure-route]
    [compojure.handler :as compojure-handler]
    [ring.middleware.content-type :as content-type]
-   [ring.middleware.json :as json]
    [ring.middleware.not-modified :as not-modified]
    [ring.middleware.resource :as resource]
+   [ring.middleware.format :as format]
    [ring.util.http-response :as http-response]
    [ring.util.response :as response]
+   [wordroot.db.words.words :as words]
    [wordroot.views :as views]))
 
 (defn make-routes
@@ -19,10 +20,10 @@
       (->
         (http-response/ok views/index-page)
         (response/content-type "text/html")))
+    (compojure/GET "/words" []
+      (http-response/ok (words/get-words-index (:connection db))))
     (compojure/GET "/words/:word" [word]
-      (->
-        (http-response/ok {:foo "bar"})
-        (response/content-type "text/json")))
+      (http-response/ok (words/get-word-by-word-name (:connection db) word)))
     (compojure-route/not-found "Page not found")))
 
 (defn make-handler
@@ -32,7 +33,7 @@
     (resource/wrap-resource "public")
     (content-type/wrap-content-type)
     (not-modified/wrap-not-modified)
-    (json/wrap-json-response)))
+    (format/wrap-restful-format)))
 
 (defrecord Handler [db]
   component/Lifecycle

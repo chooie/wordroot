@@ -22,5 +22,5 @@
                           (reset! menu-is-open?-atom false)))
             :class    (when (= current-index index)
                         "active")}
-           (apply str (:parts word))])
+           word])
         words)]]))

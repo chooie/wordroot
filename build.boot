@@ -6,6 +6,7 @@
                   [adzerk/boot-cljs-repl "0.3.2"]
                   [adzerk/boot-reload "0.4.12"]
                   [adzerk/boot-test "1.1.2" :scope "test"]
+                  [cljs-ajax "0.5.8"]
                   [com.cemerick/piggieback "0.2.1"]
                   [com.layerware/hugsql "0.4.7"]
                   [com.stuartsierra/component "0.3.1"]
@@ -28,7 +29,7 @@
                   [reagent "0.6.0"]
                   [reagent-utils "0.2.0"]
                   [ring "1.5.0"]
-                  [ring/ring-json "0.4.0"]
+                  [ring-middleware-format "0.7.0"]
                   [secretary "1.0.3"]
                   [weasel "0.7.0"]])
 

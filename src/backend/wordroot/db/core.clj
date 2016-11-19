@@ -16,4 +16,4 @@
 
 (defn new-db
   [connection]
-  (map->Database {:connection connection}))
+  (map->Database connection))

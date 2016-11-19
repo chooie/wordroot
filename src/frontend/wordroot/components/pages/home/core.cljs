@@ -78,7 +78,8 @@
       menu-is-open?-atom]
      [:div.controls
       [words-menu-toggle menu-is-open?-atom]]
-     [:h1"Home"]
-     [word-parts-header (:parts word)]
-     [:div.center
-      [:p (:description word)]]]))
+     ;; [:h1"Home"]
+     ;; [word-parts-header (:parts word)]
+     ;; [:div.center
+     ;;  [:p (:description word)]]
+     ]))

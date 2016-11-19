@@ -12,3 +12,7 @@ VALUES :tuple*:words;
 -- :doc Get word by name
 SELECT * FROM words
 WHERE word = :word;
+
+-- :name get-words :?
+-- :doc Gets all the word names
+SELECT word FROM words;

@@ -1,11 +1,18 @@
 (ns wordroot.routing
   (:require
+   [ajax.core :as ajax]
    [goog.events :as events]
    [goog.history.EventType :as HistoryEventType]
    [reagent.session :as session]
-   [secretary.core :as secretary :refer-macros [defroute]]
+   [secretary.core :as secretary :include-macros true]
    [wordroot.constants :as constants])
   (:import goog.History))
+
+(defn get-words!
+  []
+  (ajax/GET "http://localhost:8000/words"
+    {:handler (fn [words]
+                (session/put! :words words))}))
 
 (secretary/set-config! :prefix constants/secretary-prefix)
 
@@ -13,15 +20,18 @@
   [page]
   (session/put! :page page))
 
-(defroute home-path (:home constants/paths)
+
+
+(secretary/defroute home-path (:home constants/paths)
   []
+  (get-words!)
   (set-page-session-val! :home))
 
-(defroute about-path (:about constants/paths)
+(secretary/defroute about-path (:about constants/paths)
   []
   (set-page-session-val! :about))
 
-(defroute "*"
+(secretary/defroute "*"
   []
   (set-page-session-val! :error))
 
