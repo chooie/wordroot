@@ -20,8 +20,10 @@
       (->
         (http-response/ok views/index-page)
         (response/content-type "text/html")))
-    (compojure/GET "/words" []
+    (compojure/GET "/words-index" []
       (http-response/ok (words/get-words-index (:connection db))))
+    (compojure/GET "/words" []
+      (http-response/ok (words/get-words (:connection db))))
     (compojure/GET "/words/:word" [word]
       (http-response/ok (words/get-word-by-word-name (:connection db) word)))
     (compojure-route/not-found "Page not found")))

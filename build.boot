@@ -67,8 +67,7 @@
 (deftask development
   []
   (comp
-    (wordroot-ide-integration/cider)
-    (wordroot-test/run-frontend-tests)))
+    (wordroot-ide-integration/cider)))
 
 (deftask dev
   "Launch App with Development Profile"

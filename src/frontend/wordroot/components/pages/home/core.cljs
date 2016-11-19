@@ -29,7 +29,7 @@
     (clojure.string/capitalize part)
     part))
 
-(defn word-part
+(defn word-part-component
   [colour-classes line-classes part index]
   ^{:key part}
   [:li.word-part
@@ -42,8 +42,9 @@
   [:div.word-header.center
    [:ul.word-parts
     (map-indexed
-      (fn [i part]
-        (word-part colour-classes line-classes part i))
+      (fn [i word-part]
+        (let [{:keys [part root]} word-part]
+          (word-part-component colour-classes line-classes part i)))
       word-parts)]])
 
 (defn menu-toggle
@@ -72,14 +73,16 @@
   []
   (let [words (session/get :words)
         word  (get words @current-word-index-atom)]
-    [:div
-     [words-navbar/component words
-      current-word-index-atom
-      menu-is-open?-atom]
-     [:div.controls
-      [words-menu-toggle menu-is-open?-atom]]
-     ;; [:h1"Home"]
-     ;; [word-parts-header (:parts word)]
-     ;; [:div.center
-     ;;  [:p (:description word)]]
-     ]))
+    (if words
+      [:div
+       [words-navbar/component words
+        current-word-index-atom
+        menu-is-open?-atom]
+       [:div.controls
+        [words-menu-toggle menu-is-open?-atom]]
+       [:h1"Home"]
+       [word-parts-header (:parts word)]
+       [:div.center
+        [:p (:meaning word)]]]
+      [:div
+       [:h1 "Loading..."]])))

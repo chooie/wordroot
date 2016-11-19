@@ -130,4 +130,14 @@
 
 (defn get-words-index
   [db-connection]
-  (map :word (get-words db-connection)))
+  (map :word (get-word-names db-connection)))
+
+(defn get-words
+  [db-connection]
+  (let [word-names (get-words-index db-connection)
+        words      (doall
+                     (mapv
+                       (fn [word-name]
+                         (get-word-by-word-name db-connection word-name))
+                       word-names))]
+    words))

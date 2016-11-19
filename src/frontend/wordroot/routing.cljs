@@ -21,7 +21,6 @@
   (session/put! :page page))
 
 
-
 (secretary/defroute home-path (:home constants/paths)
   []
   (get-words!)

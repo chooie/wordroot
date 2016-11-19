@@ -13,6 +13,6 @@ VALUES :tuple*:words;
 SELECT * FROM words
 WHERE word = :word;
 
--- :name get-words :?
+-- :name get-word-names :?
 -- :doc Gets all the word names
 SELECT word FROM words;
