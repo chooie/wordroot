@@ -2,7 +2,7 @@
   (:require
    [reagent.core :as reagent]
    [reagent.session :as session]
-   [wordroot.components.pages.home.word-view :as word-view]
+   [wordroot.components.pages.home.word-view.core :as word-view]
    [wordroot.components.pages.home.words-navbar :as words-navbar]))
 
 (defn menu-toggle
