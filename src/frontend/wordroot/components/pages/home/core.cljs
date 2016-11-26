@@ -82,6 +82,18 @@
         [words-menu-toggle menu-is-open?-atom]]
        [:h1"Home"]
        [word-parts-header (:parts word)]
+       [:div.roots
+        (map
+          (fn [part]
+            (let [root (:root part)]
+              (when root
+                [:div
+                 [:ul
+                  [:li (:word root)]
+                  [:li (:meaning root)]
+                  [:li (:language root)]]
+                 [:hr]])))
+          (:parts word))]
        [:div.center
         [:p (:meaning word)]]]
       [:div
