@@ -21,5 +21,9 @@
     &.overline {
       border-top: solid 1px;
     }
+
+    &.clickable {
+      cursor: pointer;
+    }
   }
 }
