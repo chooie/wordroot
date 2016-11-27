@@ -39,6 +39,7 @@
        [:div.controls
         [words-menu-toggle menu-is-open?-atom]]
        [:h1"Home"]
+       [:div.clear]
        [word-view/component word]]
       [:div
        [:h1 "Loading..."]])))
