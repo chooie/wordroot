@@ -1,5 +1,5 @@
 (set-env!
-  :source-paths #{"boot_tasks" "src/backend" "src/frontend"}
+  :source-paths #{"boot_tasks" "src/backend" "src/frontend" "src/shared"}
   :resource-paths #{"resources"}
 
   :dependencies '[[adzerk/boot-cljs "1.7.228-1"]
@@ -17,6 +17,7 @@
                   [hiccup "1.0.5"]
                   [http-kit "2.2.0"]
                   [javax.servlet/servlet-api "2.5"]
+                  [levand/immuconf "0.1.0"]
                   [metosin/ring-http-response "0.8.0"]
                   [org.clojure/clojure "1.8.0"]
                   [org.clojure/clojurescript "1.7.228"]

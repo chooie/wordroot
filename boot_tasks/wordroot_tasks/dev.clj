@@ -3,13 +3,15 @@
    [boot.core :as boot]
    [clojure.tools.namespace.repl :as repl]
    [com.stuartsierra.component :as component]
+   [wordroot.config :as config]
    [wordroot.core :as wr]))
 
 (def system (atom nil))
 
 (defn- init
   []
-  (reset! system (wr/wordroot-system)))
+  (let [config (config/get-dev-config)]
+    (reset! system (wr/wordroot-system config))))
 
 (defn- start
   []

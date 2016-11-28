@@ -9,12 +9,12 @@
    [wordroot.views :as views]))
 
 (defn wordroot-system
-  []
+  [config]
   (let [system-map            (component/system-map
                                 :db (db/new-db
-                                      {:connection db-config/postgres-db})
+                                      {:connection (:db config)})
                                 :handler (handler/new-handler)
-                                :server (server/new-web-server 8000))
+                                :server (server/new-web-server (:port config)))
         system-dependency-map (component/system-using system-map
                                 {:handler {:db :db}
                                  :server  {:handler :handler}})]

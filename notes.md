@@ -1,6 +1,7 @@
 # Todo
 - Setup dev and prod profiles
     - Use [Immuconf](https://github.com/levand/immuconf) for this
+    - Figure out how to pass these environment variables to the frontend
 
 - Tidy up Boot tasks
     - Add production task

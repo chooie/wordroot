@@ -84,3 +84,6 @@ resolver-status.properties
 
 # Exclude maven wrapper
 !/.mvn/wrapper/maven-wrapper.jar
+
+# App
+dev_config.edn
