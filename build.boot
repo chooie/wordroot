@@ -1,5 +1,5 @@
 (set-env!
-  :source-paths #{"boot_tasks" "src/backend" "src/frontend" "src/shared"}
+  :source-paths #{"boot_tasks" "src/backend" "src/frontend"}
   :resource-paths #{"resources"}
 
   :dependencies '[[adzerk/boot-cljs "1.7.228-1"]

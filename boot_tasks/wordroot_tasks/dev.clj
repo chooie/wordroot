@@ -13,14 +13,14 @@
   (let [config (config/get-dev-config)]
     (reset! system (wr/wordroot-system config))))
 
-(defn- start
-  []
-  (reset! system (component/start @system)))
+ (defn- start
+   []
+   (reset! system (component/start @system)))
 
-(defn- stop
-  []
-  (when @system
-    (reset! system (component/stop @system))))
+ (defn- stop
+   []
+   (when @system
+     (reset! system (component/stop @system))))
 
 (defn go
   []

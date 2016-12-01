@@ -2,8 +2,9 @@
   (:require
    [immuconf.config :as immuconf]))
 
-(defn get-dev-config
+(defmacro get-dev-config
   []
+  (#'clojure.core/load-data-readers)
   (immuconf/load
     "resources/config.edn"
     "dev_config.edn"))

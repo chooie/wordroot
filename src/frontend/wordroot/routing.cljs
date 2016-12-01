@@ -6,7 +6,12 @@
    [reagent.session :as session]
    [secretary.core :as secretary :include-macros true]
    [wordroot.constants :as constants])
+  (:require-macros [wordroot.config :refer [get-dev-config]])
   (:import goog.History))
+
+(defn hey
+  []
+  (get-dev-config))
 
 (defn get-words!
   []
