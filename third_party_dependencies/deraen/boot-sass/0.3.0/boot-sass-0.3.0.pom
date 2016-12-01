@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>deraen</groupId>
+  <artifactId>boot-sass</artifactId>
+  <version>0.3.0</version>
+  <name>boot-sass</name>
+  <description>Boot task to compile SASS</description>
+  <url>https://github.com/deraen/sass4clj</url>
+  <licenses>
+    <license>
+      <url>http://www.eclipse.org/legal/epl-v10.html</url>
+      <name>Eclipse Public License</name>
+      <comments/>
+    </license>
+  </licenses>
+  <packaging>jar</packaging>
+  <scm>
+    <url>https://github.com/deraen/sass4clj</url>
+    <tag>03c54ff3368fa3c385b1704b34272135cabfba46</tag>
+  </scm>
+  <dependencies/>
+</project>
