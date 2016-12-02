@@ -2,8 +2,8 @@
   (:require
    [immuconf.config :as immuconf]))
 
-(defmacro get-dev-config
+(defmacro get-config
   []
   (immuconf/load
     "resources/config.edn"
-    "dev_config.edn"))
+    "secret_config.edn"))

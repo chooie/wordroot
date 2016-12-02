@@ -51,7 +51,7 @@
         (require '[wordroot-tasks.dev :as wordroot-dev])
         (next-task fileset)))))
 
-(deftask build
+(deftask build-dev
   []
   (comp
     (speak)
@@ -63,7 +63,7 @@
       :source-map    true)
     (target :dir #{"target"})))
 
-(deftask run
+(deftask run-dev
   []
   (comp
     (watch)
@@ -71,7 +71,7 @@
       :asset-path "public"
       :on-jsload 'wordroot.core/init!)
     (cljs-repl)
-    (build)))
+    (build-dev)))
 
 (deftask development
   []
@@ -82,5 +82,20 @@
   "Launch App with Development Profile"
   []
   (comp
-    (run)
-    (development)))
+    (development)
+    (run-dev)))
+
+
+(deftask package
+  "Build the package"
+  []
+  (comp
+    (sass :output-style :compressed)
+    (cljs :optimizations :advanced
+      :compiler-options {:preloads nil})
+    (aot :namespace #{'wordroot.main})
+    ;; (pom)
+    (uber)
+    (jar :main 'wordroot.main)
+    (sift :include #{#".*\.jar"})
+    (target)))

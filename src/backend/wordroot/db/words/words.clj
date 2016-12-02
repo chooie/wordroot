@@ -4,11 +4,11 @@
    [com.stuartsierra.component :as component]
    [hugsql.core :as hugsql]))
 
-(doseq [hugsql-path ["wordroot/db/sql/words/words.sql"
-                     "wordroot/db/sql/words/languages.sql"
-                     "wordroot/db/sql/words/roots.sql"
-                     "wordroot/db/sql/words/word_parts.sql"
-                     "wordroot/db/sql/words/word_parts_roots.sql"]]
+(doseq [hugsql-path ["sql/words/words.sql"
+                     "sql/words/languages.sql"
+                     "sql/words/roots.sql"
+                     "sql/words/word_parts.sql"
+                     "sql/words/word_parts_roots.sql"]]
   (hugsql/def-db-fns hugsql-path))
 
 

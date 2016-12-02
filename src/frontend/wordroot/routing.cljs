@@ -6,11 +6,11 @@
    [reagent.session :as session]
    [secretary.core :as secretary :include-macros true]
    [wordroot.constants :as constants])
-  (:require-macros [wordroot.config :refer [get-dev-config]])
+  (:require-macros [wordroot.config :refer [get-config]])
   (:import goog.History))
 
 (def words-url
-  (let [config (get-dev-config)]
+  (let [config (get-config)]
     (str
       "http://"
       (:host config)
