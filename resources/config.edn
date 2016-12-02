@@ -1,7 +1,7 @@
-{:host "Specify host (e.g. localhost)"
- :port "Specify port (e.g. 8000)"
- :db   {:dbtype   "Specify the type of database (e.g postgresql)"
-        :dbname   "Specify database name"
-        :host     "Specify the host name of where the database can be found (e.g. localhost)"
-        :user     "Specify the username"
-        :password "Specify the password"}}
+{:host #immuconf/override "Specify host (e.g. localhost)"
+ :port #immuconf/override "Specify port (e.g. 8000)"
+ :db   {:dbtype   #immuconf/override "Specify the type of database (e.g postgresql)"
+        :dbname   #immuconf/override "Specify database name"
+        :host     #immuconf/override "Specify the host name of where the database can be found (e.g. localhost)"
+        :user     #immuconf/override "Specify the username"
+        :password #immuconf/override "Specify the password"}}

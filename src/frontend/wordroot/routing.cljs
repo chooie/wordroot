@@ -9,13 +9,18 @@
   (:require-macros [wordroot.config :refer [get-dev-config]])
   (:import goog.History))
 
-(defn hey
-  []
-  (get-dev-config))
+(def words-url
+  (let [config (get-dev-config)]
+    (str
+      "http://"
+      (:host config)
+      ":"
+      (:port config)
+      "/words")))
 
 (defn get-words!
   []
-  (ajax/GET "http://localhost:8000/words"
+  (ajax/GET words-url
     {:handler (fn [words]
                 (session/put! :words words))}))
 
