@@ -1,36 +1,29 @@
 (ns wordroot-tasks.db
   (:require
-   [boot.core :as boot]
+   [wordroot.config :as config]
    [wordroot.db.migration-management :as migration-management]
    [wordroot.db.seed-management :as seed-management]))
 
-(boot/deftask run-migrations!
+(defn run-migrations!
   []
-  (fn [next-handler]
-    (fn [fileset]
-      (migration-management/migrate!)
-      (println "Ran migrations...")
-      (next-handler fileset))))
+  (let [config (config/get-config)]
+    (migration-management/migrate! (:db config))
+    (println "Ran migrations...")))
 
-(boot/deftask rollback-migrations!
+(defn rollback-migrations!
   []
-  (fn [next-handler]
-    (fn [fileset]
-      (migration-management/rollback!)
-      (println "Migrations rolled back...")
-      (next-handler fileset))))
+  (let [config (config/get-config)]
+    (migration-management/rollback! (:db config))
+    (println "Migrations rolled back...")))
 
-(boot/deftask seed-database!
+(defn seed-database!
   []
-  (fn [next-handler]
-    (fn[fileset]
-      (seed-management/seed-database!)
-      (println "Database seeded...")
-      (next-handler fileset))))
+  (let [config (config/get-config)]
+    (seed-management/seed-database! (:db config))
+    (println "Database seeded...")))
 
-(boot/deftask reset-database-and-seed!
+(defn reset-database-and-seed!
   []
-  (comp
-    (rollback-migrations!)
-    (run-migrations!)
-    (seed-database!)))
+  (rollback-migrations!)
+  (run-migrations!)
+  (seed-database!))

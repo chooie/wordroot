@@ -39,16 +39,18 @@
   '[adzerk.boot-cljs-repl :refer [cljs-repl start-repl]]
   '[adzerk.boot-reload :refer [reload]]
   '[deraen.boot-sass :refer [sass]]
-  '[wordroot-tasks.db :as wordroot-db]
-  '[wordroot-tasks.ide-integration :as wordroot-ide-integration]
-  '[wordroot-tasks.test :as wordroot-test])
+  '[wordroot-tasks.ide-integration :as wordroot-ide-integration])
 
 (deftask data-readers []
   (fn [next-task]
     (fn [fileset]
       (#'clojure.core/load-data-readers)
       (with-bindings {#'*data-readers* (.getRawRoot #'*data-readers*)}
-        (require '[wordroot-tasks.dev :as wordroot-dev])
+        ;; All these namespaces require the use of environment variables
+        (require
+          '[wordroot-tasks.dev :as wordroot-dev]
+          '[wordroot-tasks.db :as wordroot-db]
+          '[wordroot-tasks.test :as wordroot-test])
         (next-task fileset)))))
 
 (deftask build-dev

@@ -12,7 +12,6 @@
 
 (boot/deftask run-frontend-tests
   []
-  (boot/task-options!
-    boot-cljs-test/test-cljs {:js-env :phantom})
   (comp
-    (boot-cljs-test/test-cljs)))
+    (boot-cljs-test/test-cljs
+      :js-env :phantom)))

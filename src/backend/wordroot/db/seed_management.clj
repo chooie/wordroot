@@ -5,7 +5,7 @@
    [wordroot.db.words.words-seeder :as words-seeder]))
 
 (defn seed-database!
-  []
+  [db-config]
   (words-seeder/seed!
-    db-config/postgres-db
+    db-config
     example-words/words))

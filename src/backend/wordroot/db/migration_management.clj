@@ -1,18 +1,14 @@
 (ns wordroot.db.migration-management
   (:require
-   [ragtime.jdbc :as ragtime-jdbc]
    [ragtime.repl :as ragtime-repl]
    [wordroot.db.config :as db-config]))
 
-(def ragtime-config
-  {:datastore  (ragtime-jdbc/sql-database
-                 {:connection-uri db-config/ragtime-postgres-uri})
-   :migrations (ragtime-jdbc/load-resources "migrations")})
-
 (defn rollback!
-  []
-  (ragtime-repl/rollback ragtime-config))
+  [db-env-config]
+  (ragtime-repl/rollback (db-config/create-ragtime-config
+                           db-env-config)))
 
 (defn migrate!
-  []
-  (ragtime-repl/migrate ragtime-config))
+  [db-env-config]
+  (ragtime-repl/migrate (db-config/create-ragtime-config
+                          db-env-config)))
