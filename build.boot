@@ -84,8 +84,8 @@
   "Launch App with Development Profile"
   []
   (comp
-    (development)
-    (run-dev)))
+    (run-dev)
+    (development)))
 
 
 (deftask package

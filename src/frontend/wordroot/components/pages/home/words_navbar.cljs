@@ -1,4 +1,5 @@
-(ns wordroot.components.pages.home.words-navbar)
+(ns wordroot.components.pages.home.words-navbar
+  (:require [clojure.string :as string]))
 
 (defn close-button
   [menu-is-open?-atom]
@@ -21,7 +22,7 @@
                          (reset! menu-is-open?-atom false)))
            :class    (when (= current-index index)
                        "active")}
-          (clojure.string/capitalize (:word word))])
+          (string/capitalize (:word word))])
        words)]))
 
 (defn component
