@@ -1,6 +1,4 @@
 # Todo
-- Tidy up Boot tasks
-
 - Learn how to use Docker and set up Docker for deployment
 
 - Deploy to production
