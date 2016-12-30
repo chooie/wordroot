@@ -1,21 +1,27 @@
 # Wordroot
 Teaches the meaning of words and their roots.
 
+## Docker
+- Create local image
+    - `docker build --tag wordroot .`
+- Start up container
+    - `docker run --detach -p 80:8000 --name wordroot-container wordroot`
+
 ## Setup
 ### Database
 - Initialise the database
-  * `initdb -D /usr/local/pgsql/data`
+    * `initdb -D /usr/local/pgsql/data`
 - Start database server
-  * `pg_ctl -D /usr/local/pgsql/data -l logfile start`
+    * `pg_ctl -D /usr/local/pgsql/data -l logfile start`
 - Connect to the database
-  * `psql -d postgres`
+    * `psql -d postgres`
 - Create the database
-  * `CREATE DATABASE wordroot_database;`
+    * `CREATE DATABASE wordroot_database;`
 - Create the role for the database
-  * `CREATE ROLE wordroot_user WITH LOGIN PASSWORD 'weak_password';`
+    * `CREATE ROLE wordroot_user WITH LOGIN PASSWORD 'weak_password';`
 - Run the migrations and seed the database
-  * Start the interactive development application:
-    - `boot dev`
-  * Connect to the running repl (I use cider-connect in Emacs)
-  * Run the migration and seed tasks
-    - `(wordroot-db/reset-database-and-seed!)`
+    * Start the interactive development application
+        - `boot dev`
+    * Connect to the running repl (I use cider-connect in Emacs)
+    * Run the migration and seed tasks
+        - `(wordroot-db/reset-database-and-seed!)`

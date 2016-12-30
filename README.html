@@ -15,23 +15,55 @@
 
 <p>Teaches the meaning of words and their roots.</p>
 
+<h2 id="docker">Docker</h2>
+
+<ul>
+<li>Create local image
+
+<ul>
+<li><code>docker build --tag wordroot .</code></li>
+</ul></li>
+<li>Start up container
+
+<ul>
+<li><code>docker run --detach -p 80:8000 --name wordroot-container wordroot</code></li>
+</ul></li>
+</ul>
+
 <h2 id="setup">Setup</h2>
 
 <h3 id="database">Database</h3>
 
 <ul>
-<li>Initialise the database</li>
+<li>Initialise the database
+
+<ul>
 <li><code>initdb -D /usr/local/pgsql/data</code></li>
-<li>Start database server</li>
+</ul></li>
+<li>Start database server
+
+<ul>
 <li><code>pg_ctl -D /usr/local/pgsql/data -l logfile start</code></li>
-<li>Connect to the database</li>
+</ul></li>
+<li>Connect to the database
+
+<ul>
 <li><code>psql -d postgres</code></li>
-<li>Create the database</li>
+</ul></li>
+<li>Create the database
+
+<ul>
 <li><code>CREATE DATABASE wordroot_database;</code></li>
-<li>Create the role for the database</li>
+</ul></li>
+<li>Create the role for the database
+
+<ul>
 <li><code>CREATE ROLE wordroot_user WITH LOGIN PASSWORD 'weak_password';</code></li>
-<li>Run the migrations and seed the database</li>
-<li>Start the interactive development application:
+</ul></li>
+<li>Run the migrations and seed the database
+
+<ul>
+<li>Start the interactive development application
 
 <ul>
 <li><code>boot dev</code></li>
@@ -41,6 +73,7 @@
 
 <ul>
 <li><code>(wordroot-db/reset-database-and-seed!)</code></li>
+</ul></li>
 </ul></li>
 </ul>
 
