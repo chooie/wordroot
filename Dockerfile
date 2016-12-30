@@ -4,7 +4,7 @@ MAINTAINER Charlie Hebert <charlie.hebert92@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive
 
-# Oracle Java 8
+# Oracle Java 8 and Boot
 
 RUN apt-get update \
     && apt-get install -y curl wget openssl ca-certificates \
