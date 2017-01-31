@@ -9,10 +9,7 @@ Teaches the meaning of words and their roots.
     - `docker-compose up -d`
 - For the first deploy, you must initialise the database with some seed data
     - `docker exec -it wordroot_web_1 bash`
-    - `boot reset-and-seed-database`
-- For subsequent deploys:
-    - `docker exec -it wordroot_web_1 bash`
-    - `boot run-migrations`
+    - `boot get-build-ready-with-dummy-data`
 
 ## Setup
 ### Dev
