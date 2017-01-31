@@ -15,24 +15,37 @@
 
 <p>Teaches the meaning of words and their roots.</p>
 
-<h2 id="docker">Docker</h2>
+<h2 id="deploy">Deploy</h2>
 
 <ul>
-<li>Create local image
+<li>Use Docker with Docker Compose</li>
+<li>Build the images
 
 <ul>
-<li><code>docker build --tag wordroot .</code></li>
+<li><code>docker-compose build.</code></li>
 </ul></li>
-<li>Start up container
+<li>Start up containers
 
 <ul>
-<li><code>docker run --detach -p 80:8000 --name wordroot-container wordroot</code></li>
+<li><code>docker-compose up -d</code></li>
+</ul></li>
+<li>For the first deploy, you must initialise the database with some seed data
+
+<ul>
+<li><code>docker exec -it wordroot_web_1 bash</code></li>
+<li><code>boot reset-and-seed-database</code></li>
+</ul></li>
+<li>For subsequent deploys:
+
+<ul>
+<li><code>docker exec -it wordroot_web_1 bash</code></li>
+<li><code>boot run-migrations</code></li>
 </ul></li>
 </ul>
 
 <h2 id="setup">Setup</h2>
 
-<h3 id="database">Database</h3>
+<h3 id="dev">Dev</h3>
 
 <ul>
 <li>Initialise the database

@@ -1,14 +1,21 @@
 # Wordroot
 Teaches the meaning of words and their roots.
 
-## Docker
-- Create local image
-    - `docker build --tag wordroot .`
-- Start up container
-    - `docker run --detach -p 80:8000 --name wordroot-container wordroot`
+## Deploy
+- Use Docker with Docker Compose
+- Build the images
+    - `docker-compose build.`
+- Start up containers
+    - `docker-compose up -d`
+- For the first deploy, you must initialise the database with some seed data
+    - `docker exec -it wordroot_web_1 bash`
+    - `boot reset-and-seed-database`
+- For subsequent deploys:
+    - `docker exec -it wordroot_web_1 bash`
+    - `boot run-migrations`
 
 ## Setup
-### Database
+### Dev
 - Initialise the database
     * `initdb -D /usr/local/pgsql/data`
 - Start database server

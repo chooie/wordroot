@@ -39,7 +39,8 @@
   '[deraen.boot-sass :refer [sass]]
   '[wordroot-tasks.ide-integration :as wordroot-ide-integration])
 
-(deftask data-readers []
+(deftask data-readers
+  []
   (fn [next-task]
     (fn [fileset]
       (#'clojure.core/load-data-readers)
@@ -50,6 +51,37 @@
           '[wordroot-tasks.db :as wordroot-db]
           '[wordroot-tasks.test :as wordroot-test])
         (next-task fileset)))))
+
+(deftask run-migrations
+  []
+  (fn [next-task]
+    (fn [fileset]
+      (require 'wordroot-tasks.db)
+      (let [run-migrations! (resolve 'wordroot-tasks.db/run-migrations!)]
+        (run-migrations!))
+      (next-task fileset))))
+
+(deftask get-build-ready
+  []
+  (comp
+    (data-readers)
+    (run-migrations)))
+
+(deftask reset-and-seed-database
+  []
+  (fn [next-task]
+    (fn [fileset]
+      (require 'wordroot-tasks.db)
+      (let [reset-and-seed! (resolve
+                              'wordroot-tasks.db/reset-database-and-seed!)]
+        (reset-and-seed!))
+      (next-task fileset))))
+
+(deftask get-build-ready-with-dummy-data
+  []
+  (comp
+    (data-readers)
+    (reset-and-seed-database)))
 
 (deftask build-dev
   []
