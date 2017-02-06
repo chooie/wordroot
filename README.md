@@ -8,7 +8,7 @@ Teaches the meaning of words and their roots.
 - Start up containers
     - `docker-compose up -d`
 - For the first deploy, you must initialise the database with some seed data
-    - `docker exec -it wordroot_web_1 bash`
+    - `docker exec -it wordroot_web bash`
     - `boot get-build-ready-with-dummy-data`
 
 ## Setup

@@ -1,6 +1,17 @@
 # Todo
-- Learn how to use Docker and set up Docker for deployment
+- Figure out how to properly run all backend and frontend tests
+  - One command
+  - Takes less than 3 seconds to execute
+- Flesh out unit test suite - very lacking right now
+- Add ability to play audio and video files for a relevant word
+- Add search menu
+- When exploring roots, displays words that share that root
 
-- Deploy to production
-    - Digital Ocean, AWS or Heroku?
-    - Probably try free version of Heroku first
+# Nice to haves
+- Hide the configuration information in docker-compose.yml by using environment
+variables that can be accessed in the docker-compose.yml file
+    - Would also be nice if we could use this rather than the secret_config.edn
+    file
+- Deploy build to production after commit
+  - Not going to bother with automated system testing for now
+  - Need to research this more. Jenkins?
