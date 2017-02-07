@@ -16,11 +16,12 @@
                   [http-kit "2.2.0"]
                   [javax.servlet/servlet-api "2.5"]
                   [levand/immuconf "0.1.0"]
+                  [metosin/boot-alt-test "0.3.0"]
                   [metosin/ring-http-response "0.8.0"]
                   [org.clojure/clojure "1.8.0"]
                   [org.clojure/clojurescript "1.7.228"]
                   [org.clojure/java.jdbc "0.6.2-alpha3"]
-                  [org.clojure/tools.namespace "0.2.11"]
+                  [org.clojure/tools.namespace "0.3.0-alpha3"]
                   [org.clojure/tools.nrepl "0.2.12"]
                   [org.postgresql/postgresql "9.4.1211"]
                   [org.slf4j/slf4j-nop "1.7.13" :scope "test"]
@@ -37,7 +38,15 @@
   '[adzerk.boot-cljs-repl :refer [cljs-repl start-repl]]
   '[adzerk.boot-reload :refer [reload]]
   '[deraen.boot-sass :refer [sass]]
+  '[metosin.boot-alt-test :as boot-alt-test]
   '[wordroot-tasks.ide-integration :as wordroot-ide-integration])
+
+(deftask watch-backend-tests
+  []
+  (comp
+    (watch)
+    (speak)
+    (boot-alt-test/alt-test)))
 
 (deftask data-readers
   []
@@ -48,8 +57,7 @@
         ;; All these namespaces require the use of environment variables
         (require
           '[wordroot-tasks.dev :as wordroot-dev]
-          '[wordroot-tasks.db :as wordroot-db]
-          '[wordroot-tasks.test :as wordroot-test])
+          '[wordroot-tasks.db :as wordroot-db])
         (next-task fileset)))))
 
 (deftask run-migrations

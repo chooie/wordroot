@@ -1,5 +1,6 @@
 (ns wordroot.db.words.-words-test
-  (:require [clojure.test :as test]))
+  (:require
+   [clojure.test :as test]))
 
 (test/deftest main
   (test/testing "Test suite works"
