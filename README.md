@@ -29,3 +29,7 @@ Teaches the meaning of words and their roots.
     * Connect to the running repl (I use cider-connect in Emacs)
     * Run the migration and seed tasks
         - `(wordroot-db/reset-database-and-seed!)`
+
+## Notes
+### Boot
+If Boot noticeably slows down, delete the ~/.boot directory
