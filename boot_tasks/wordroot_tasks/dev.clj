@@ -10,7 +10,7 @@
 
 (defn- init
   []
-  (let [config (config/get-config)]
+  (let [config (config/get-config-with-profile :dev)]
     (reset! system (wr/wordroot-system config))))
 
 (defn- start

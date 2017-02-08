@@ -86,4 +86,4 @@ resolver-status.properties
 !/.mvn/wrapper/maven-wrapper.jar
 
 # App
-secret_config.edn
+secrets/**/*

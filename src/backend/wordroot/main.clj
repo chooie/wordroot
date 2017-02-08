@@ -6,6 +6,6 @@
   (:gen-class))
 
 (defn -main [& args]
-  (let [config          (config/get-config)
+  (let [config          (config/get-config-with-profile :production)
         wordroot-system (wordroot/wordroot-system config)]
     (component/start wordroot-system)))

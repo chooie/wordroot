@@ -14,11 +14,11 @@
    [wordroot.views :as views]))
 
 (defn make-routes
-  [db]
+  [host port db]
   (compojure/routes
     (compojure/GET "/" []
       (->
-        (http-response/ok views/index-page)
+        (http-response/ok (views/index-page host port))
         (response/content-type "text/html")))
     (compojure/GET "/words-index" []
       (http-response/ok (words/get-words-index (:connection db))))
@@ -29,25 +29,25 @@
     (compojure-route/not-found "Page not found")))
 
 (defn make-handler
-  [db]
+  [host port db]
   (->
-    (compojure-handler/site (make-routes db))
+    (compojure-handler/site (make-routes host port db))
     (resource/wrap-resource "public")
     (content-type/wrap-content-type)
     (not-modified/wrap-not-modified)
     (format/wrap-restful-format)))
 
-(defrecord Handler [db]
+(defrecord Handler [db host port]
   component/Lifecycle
 
   (start [component]
     (println "Starting handler")
-    (assoc component :handler (make-handler db)))
+    (assoc component :handler (make-handler host port db)))
 
   (stop [component]
     (println "Stopping handler")
     (assoc component :handler nil)))
 
 (defn new-handler
-  []
-  (map->Handler {}))
+  [host port]
+  (map->Handler {:host host :port port}))

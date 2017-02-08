@@ -1,9 +1,11 @@
 (ns wordroot.views
   (:require
    [hiccup.core :refer [html]]
+   [hiccup.element :refer [javascript-tag]]
    [hiccup.page :refer [html5 include-js include-css]]))
 
-(def index-page
+(defn index-page
+  [host port]
   (html
     (html5
       [:head
@@ -20,4 +22,10 @@
        (include-css "styles/scss/main.css")]
       [:body
        [:div#application]
+       (javascript-tag
+         (str
+           "env = {"
+           "host: " "'" host "',\n"
+           "port: " "'" port "'"
+           "};"))
        (include-js "js/main.js")])))

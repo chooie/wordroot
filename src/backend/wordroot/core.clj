@@ -12,7 +12,9 @@
   (let [system-map            (component/system-map
                                 :db (db/new-db
                                       {:connection (:db config)})
-                                :handler (handler/new-handler)
+                                :handler (handler/new-handler
+                                           (:host config)
+                                           (:port config))
                                 :server (server/new-web-server (:port config)))
         system-dependency-map (component/system-using system-map
                                 {:handler {:db :db}
