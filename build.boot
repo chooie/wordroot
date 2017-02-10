@@ -10,6 +10,7 @@
                   [com.layerware/hugsql "0.4.7"]
                   [com.stuartsierra/component "0.3.1"]
                   [compojure "1.5.1"]
+                  [crisptrutski/boot-cljs-test "0.3.0"]
                   [deraen/boot-sass "0.3.0"]
                   [deraen/sass4clj "0.3.0"]
                   [hiccup "1.0.5"]
@@ -37,6 +38,7 @@
   '[adzerk.boot-cljs :refer [cljs]]
   '[adzerk.boot-cljs-repl :refer [cljs-repl start-repl]]
   '[adzerk.boot-reload :refer [reload]]
+  '[crisptrutski.boot-cljs-test :as boot-cljs-test]
   '[deraen.boot-sass :refer [sass]]
   '[metosin.boot-alt-test :as boot-alt-test]
   '[wordroot-tasks.ide-integration :as wordroot-ide-integration])
@@ -47,6 +49,25 @@
     (watch)
     (speak)
     (boot-alt-test/alt-test)))
+
+(deftask watch-frontend-tests
+  []
+  (comp
+    (watch)
+    (speak)
+    (boot-cljs-test/test-cljs)
+    (boot-cljs-test/report-errors!)))
+
+(deftask run-backend-tests
+  []
+  (boot-alt-test/alt-test))
+
+(deftask run-frontend-tests
+  []
+  (comp
+    (boot-cljs-test/test-cljs
+      :keep-errors? true)
+    (boot-cljs-test/report-errors!)))
 
 (deftask data-readers
   []
@@ -94,7 +115,6 @@
 (deftask build-dev
   []
   (comp
-    (speak)
     (data-readers)
     (sass
       :source-map true)

@@ -1,7 +1,4 @@
 # Todo
-- Figure out how to properly run all backend and frontend tests
-  - One command
-  - Takes less than 3 seconds to execute
 - Flesh out unit test suite - very lacking right now
 - Add ability to play audio and video files for a relevant word
 - Add search menu
