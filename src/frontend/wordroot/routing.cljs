@@ -5,23 +5,20 @@
    [goog.history.EventType :as HistoryEventType]
    [reagent.session :as session]
    [secretary.core :as secretary :include-macros true]
+   [wordroot.config :as config]
    [wordroot.constants :as constants])
   (:import goog.History))
 
-(defn get-host
-  []
-  (.-host js/env))
-
-(defn get-port
-  []
-  (.-port js/env))
+(def base-url (let [config (config/get-config)]
+                (str
+                  "http://"
+                  (:host config)
+                  ":"
+                  (:port config))))
 
 (def words-url
   (str
-    "http://"
-    (get-host)
-    ":"
-    (get-port)
+    base-url
     "/words"))
 
 (defn get-words!
