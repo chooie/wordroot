@@ -1,4 +1,4 @@
-(ns wordroot.components.pages.home.words-navbar
+(ns wordroot.ui.pages.home.words-navbar
   (:require [clojure.string :as string]))
 
 (defn close-button

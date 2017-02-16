@@ -1,9 +1,10 @@
-(ns wordroot.components.pages.home.core
+(ns wordroot.ui.pages.home.core
   (:require
+   [ajax.core :as ajax]
    [reagent.core :as reagent]
    [reagent.session :as session]
-   [wordroot.components.pages.home.word-view.core :as word-view]
-   [wordroot.components.pages.home.words-navbar :as words-navbar]))
+   [wordroot.ui.pages.home.word-view.core :as word-view]
+   [wordroot.ui.pages.home.words-navbar :as words-navbar]))
 
 (defn menu-toggle
   [content menu-is-open?-atom]
@@ -24,12 +25,21 @@
           "Words")]
     menu-is-open?-atom))
 
+(defonce words-atom (reagent/atom nil))
 (defonce current-word-index-atom (reagent/atom 0))
-(defonce menu-is-open?-atom      (reagent/atom false))
+(defonce menu-is-open?-atom (reagent/atom false))
+
+(defn get-words!
+  [base-url]
+  (let [words-url (str base-url "/words")]
+    (ajax/GET words-url
+      {:handler (fn [words]
+                  (reset! words-atom words))})))
 
 (defn home-page
-  []
-  (let [words (session/get :words)
+  [base-url]
+  (get-words! base-url)
+  (let [words @words-atom
         word  (get words @current-word-index-atom)]
     (if words
       [:div

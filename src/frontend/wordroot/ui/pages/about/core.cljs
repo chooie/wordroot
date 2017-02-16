@@ -1,4 +1,4 @@
-(ns wordroot.components.pages.about.core)
+(ns wordroot.ui.pages.about.core)
 
 (defn about-page
   []

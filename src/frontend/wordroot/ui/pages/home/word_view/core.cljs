@@ -1,8 +1,8 @@
-(ns wordroot.components.pages.home.word-view.core
+(ns wordroot.ui.pages.home.word-view.core
   (:require
    [reagent.core :as reagent]
-   [wordroot.components.pages.home.word-view.header :as header]
-   [wordroot.components.pages.home.word-view.roots-list :as roots-list]))
+   [wordroot.ui.pages.home.word-view.header :as header]
+   [wordroot.ui.pages.home.word-view.roots-list :as roots-list]))
 
 (defn component
   [word]

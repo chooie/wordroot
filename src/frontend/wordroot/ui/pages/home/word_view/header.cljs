@@ -1,4 +1,4 @@
-(ns wordroot.components.pages.home.word-view.header)
+(ns wordroot.ui.pages.home.word-view.header)
 
 (def colour-classes ["colour-1" "colour-2" "colour-3"])
 (def line-classes ["underline" "overline"])

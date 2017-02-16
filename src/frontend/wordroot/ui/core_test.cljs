@@ -1,8 +1,8 @@
-(ns wordroot.components.core-test
+(ns wordroot.ui.core-test
   (:require
    [cljs.test :refer-macros [deftest is testing run-tests]]
    [reagent.core :as r]
-   [wordroot.components.core :as wordroot-core]))
+   [wordroot.ui.core :as wordroot-core]))
 
 (defn create-test-element
   []

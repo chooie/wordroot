@@ -1,4 +1,4 @@
-(ns wordroot.components.pages.home.word-view.roots-list)
+(ns wordroot.ui.pages.home.word-view.roots-list)
 
 (defn root-component
   [root-index root-to-show-index root]

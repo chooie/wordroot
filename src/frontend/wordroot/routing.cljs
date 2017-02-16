@@ -1,40 +1,26 @@
 (ns wordroot.routing
   (:require
-   [ajax.core :as ajax]
    [com.stuartsierra.component :as component]
    [goog.events :as events]
    [goog.history.EventType :as HistoryEventType]
-   [reagent.session :as session]
    [secretary.core :as secretary :include-macros true]
-   [wordroot.config :as config]
-   [wordroot.constants :as constants])
+   [reagent.core :as r]
+   [wordroot.config :as config])
   (:import goog.History))
 
-(defn get-words!
-  [base-url]
-  (let [words-url (str base-url "/words")]
-    (ajax/GET words-url
-      {:handler (fn [words]
-                  (session/put! :words words))})))
-
-(defn set-page-session-val!
-  [page]
-  (session/put! :page page))
-
 (defn setup-routes
-  [base-url]
-  (secretary/defroute home-path (:home constants/paths)
+  [base-url current-route-atom routing-paths]
+  (secretary/defroute home-path (:uri (:home routing-paths))
     []
-    (get-words! base-url)
-    (set-page-session-val! :home))
+    (reset! current-route-atom :home))
 
-  (secretary/defroute about-path (:about constants/paths)
+  (secretary/defroute about-path (:uri (:about routing-paths))
     []
-    (set-page-session-val! :about))
+    (reset! current-route-atom :about))
 
   (secretary/defroute "*"
     []
-    (set-page-session-val! :error)))
+    (reset! current-route-atom :error)))
 
 (defn hook-browser-navigation!
   []
@@ -47,25 +33,47 @@
     (.setEnabled true)))
 
 (defn init!
-  [base-url]
-  (secretary/set-config! :prefix constants/secretary-prefix)
+  [base-url route-prefix current-route-atom routing-paths]
+  (secretary/set-config! :prefix route-prefix)
   (hook-browser-navigation!)
-  (setup-routes base-url)
-  (secretary/dispatch! (:home constants/paths)))
+  (setup-routes base-url current-route-atom routing-paths)
+  (secretary/dispatch! (:uri (get routing-paths @current-route-atom))))
 
-(defrecord Routing [host port]
+(defrecord Routing [host port base-url route-prefix current-route-atom
+                    routing-paths]
   component/Lifecycle
   (start [component]
-    (assoc component :host host)
-    (assoc component :port port)
-    (assoc component :base-url (str "http://" host ":" port))
-    (init! (:base-url component)))
+    (let [set-component (->
+                          (assoc component :host host)
+                          (assoc :port port)
+                          (assoc :base-url base-url)
+                          (assoc :route-prefix "#")
+                          (assoc :current-route-atom current-route-atom)
+                          (assoc :routing-paths routing-paths))]
+      (init!
+        (:base-url set-component)
+        (:route-prefix set-component)
+        (:current-route-atom set-component)
+        (:routing-paths set-component))
+      set-component))
 
   (stop [component]
-    (assoc component :host nil)
-    (assoc component :port nil)
-    (assoc component :base-url nil)))
+    (->
+      (assoc component :host nil)
+      (assoc :port nil)
+      (assoc :base-url nil)
+      (assoc :current-route-atom nil)
+      (assoc :route-prefix nil)
+      (assoc :routing-paths nil))))
 
 (defn new-routing
-  [host port]
-  (map->Routing {:host host :port port}))
+  [host port starting-route]
+  (map->Routing {:host               host
+                 :port               port
+                 :base-url           (str "http://" host ":" port)
+                 :route-prefix       "#"
+                 :current-route-atom (r/atom starting-route)
+                 :routing-paths      {:home  {:uri   "/"
+                                              :label "Home"}
+                                      :about {:uri   "/about"
+                                              :label "About"}}}))
