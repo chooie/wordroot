@@ -1,6 +1,7 @@
 (ns wordroot.core
   (:require
    [com.stuartsierra.component :as component]
+   [reagent.core :as r]
    [wordroot.ui.core :as ui]
    [wordroot.config :as config]
    [wordroot.routing :as routing]))
@@ -19,7 +20,24 @@
                                 {:ui {:routing-component :routing}})]
     system-dependency-map))
 
-(defn init!
+(defonce system (atom nil))
+
+(defn- init
   []
   (let [wordroot-config (config/get-config)]
-    (component/start (wordroot-system wordroot-config))))
+    (reset! system (wordroot-system wordroot-config))))
+
+(defn- start
+  []
+  (reset! system (component/start @system)))
+
+(defn- stop
+  []
+  (when @system
+    (reset! system (component/stop @system))))
+
+(defn go
+  []
+  (stop)
+  (init)
+  (start))

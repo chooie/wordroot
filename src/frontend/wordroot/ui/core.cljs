@@ -27,9 +27,11 @@
 (defrecord UI [routing-component]
   component/Lifecycle
   (start [component]
-    (let [set-component (assoc component :routing-component routing-component)]
-      (mount-root! (:routing-component set-component))
-      set-component))
+    (.log js/console "Starting UI Component")
+    (let [set-component1 (assoc component :routing-component routing-component)
+          set-component2 (assoc set-component1
+                           :html (mount-root! routing-component))]
+      set-component2))
   (stop [component]
     (assoc component :routing-component nil)))
 

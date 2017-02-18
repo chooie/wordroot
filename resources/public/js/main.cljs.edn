@@ -1,3 +1,3 @@
 {:require          [wordroot.core]
- :init-fns         [wordroot.core/init!]
+ :init-fns         [wordroot.core/go]
  :compiler-options {:asset-path "js/main.out"}}

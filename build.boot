@@ -129,7 +129,7 @@
     (watch)
     (reload
       :asset-path "public"
-      :on-jsload 'wordroot.core/init!)
+      :on-jsload 'wordroot.core/go)
     (cljs-repl)
     (build-dev)))
 
@@ -152,7 +152,7 @@
   (comp
     (sass :output-style :compressed)
     (cljs :optimizations :advanced
-      :compiler-options {:preloads nil})
+      :compiler-options {:reloads nil})
     (aot :namespace #{'wordroot.main})
     ;; (pom)
     (uber)

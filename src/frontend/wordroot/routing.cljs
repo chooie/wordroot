@@ -22,6 +22,8 @@
     []
     (reset! current-route-atom :error)))
 
+
+(defonce hook-browser-navigation-has-been-run (atom false))
 (defn hook-browser-navigation!
   []
   (doto (History.)
@@ -35,7 +37,9 @@
 (defn init!
   [base-url route-prefix current-route-atom routing-paths]
   (secretary/set-config! :prefix route-prefix)
-  (hook-browser-navigation!)
+  (when (false? @hook-browser-navigation-has-been-run)
+    (reset! hook-browser-navigation-has-been-run true)
+    (hook-browser-navigation!))
   (setup-routes base-url current-route-atom routing-paths)
   (secretary/dispatch! (:uri (get routing-paths @current-route-atom))))
 
@@ -43,6 +47,7 @@
                     routing-paths]
   component/Lifecycle
   (start [component]
+    (.log js/console "Starting Routing Component")
     (let [set-component (->
                           (assoc component :host host)
                           (assoc :port port)
@@ -59,7 +64,8 @@
 
   (stop [component]
     (->
-      (assoc component :host nil)
+      component
+      (assoc :host nil)
       (assoc :port nil)
       (assoc :base-url nil)
       (assoc :current-route-atom nil)
