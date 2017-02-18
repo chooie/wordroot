@@ -55,7 +55,8 @@
   (comp
     (watch)
     (speak)
-    (boot-cljs-test/test-cljs)
+    (boot-cljs-test/test-cljs
+      :js-env :slimer)
     (boot-cljs-test/report-errors!)))
 
 (deftask run-backend-tests

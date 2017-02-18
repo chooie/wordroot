@@ -1,6 +1,5 @@
 # Todo
-- Use component library on the frontend
-    - Flesh out unit test suite - very lacking right now
+- Flesh out unit test suite - very lacking right now
 - Add ability to play audio and video files for a relevant word
 - Add search menu
 - When exploring roots, displays words that share that root
