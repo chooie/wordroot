@@ -1,4 +1,6 @@
-(ns wordroot.ui.navbar.core)
+(ns wordroot.ui.navbar.core
+  (:require
+   [accountant.core :as accountant]))
 
 (defn make-active-when-active
   [current-route route-keyword]
@@ -8,10 +10,9 @@
 (defn link
   [current-route-atom route-prefix href label route-keyword]
   [:li.site-link
-   [:a
-    {:href     (str route-prefix href)
-     :class    (make-active-when-active @current-route-atom route-keyword)
-     :on-click #(reset! current-route-atom route-keyword)}
+   [:button
+    {:class    (make-active-when-active @current-route-atom route-keyword)
+     :on-click #(accountant/navigate! href)}
     label]])
 
 (defn navbar-component

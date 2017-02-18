@@ -1,5 +1,6 @@
 (ns wordroot.routing
   (:require
+   [accountant.core :as accountant]
    [com.stuartsierra.component :as component]
    [goog.events :as events]
    [goog.history.EventType :as HistoryEventType]
@@ -18,30 +19,31 @@
     []
     (reset! current-route-atom :about))
 
-  (secretary/defroute "*"
+  (secretary/defroute error-path "*"
     []
     (reset! current-route-atom :error)))
 
+(defonce configure-navigation-has-been-run (atom false))
 
-(defonce hook-browser-navigation-has-been-run (atom false))
-(defn hook-browser-navigation!
+(defn configure-navigation
+  "Only run this once, otherwise multiple navigation handlers will be created.
+  Might not be an issue, although it could cause memory leak issues down the
+  road when working in a reloadable environment"
   []
-  (doto (History.)
-    (events/listen
-      HistoryEventType/NAVIGATE
-      (fn [event]
-        (when (not-empty (.-token event))
-          (secretary/dispatch! (.-token event)))))
-    (.setEnabled true)))
+  (accountant/configure-navigation!
+    {:nav-handler  (fn [path]
+                     (secretary/dispatch! path))
+     :path-exists? (fn [path]
+                     (secretary/locate-route path))}))
 
 (defn init!
   [base-url route-prefix current-route-atom routing-paths]
   (secretary/set-config! :prefix route-prefix)
-  (when (false? @hook-browser-navigation-has-been-run)
-    (reset! hook-browser-navigation-has-been-run true)
-    (hook-browser-navigation!))
   (setup-routes base-url current-route-atom routing-paths)
-  (secretary/dispatch! (:uri (get routing-paths @current-route-atom))))
+  (when-not @configure-navigation-has-been-run
+    (reset! configure-navigation-has-been-run true)
+    (configure-navigation))
+  (accountant/dispatch-current!))
 
 (defrecord Routing [host port base-url route-prefix current-route-atom
                     routing-paths]
@@ -52,7 +54,7 @@
                           (assoc component :host host)
                           (assoc :port port)
                           (assoc :base-url base-url)
-                          (assoc :route-prefix "#")
+                          (assoc :route-prefix route-prefix)
                           (assoc :current-route-atom current-route-atom)
                           (assoc :routing-paths routing-paths))]
       (init!
@@ -72,13 +74,15 @@
       (assoc :route-prefix nil)
       (assoc :routing-paths nil))))
 
+(defonce current-route-atom (r/atom :home))
+
 (defn new-routing
-  [host port starting-route]
+  [host port]
   (map->Routing {:host               host
                  :port               port
                  :base-url           (str "http://" host ":" port)
-                 :route-prefix       "#"
-                 :current-route-atom (r/atom starting-route)
+                 :route-prefix       ""
+                 :current-route-atom current-route-atom
                  :routing-paths      {:home  {:uri   "/"
                                               :label "Home"}
                                       :about {:uri   "/about"

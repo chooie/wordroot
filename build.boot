@@ -32,6 +32,7 @@
                   [ring "1.5.0"]
                   [ring-middleware-format "0.7.0"]
                   [secretary "1.0.3"]
+                  [venantius/accountant "0.1.8"]
                   [weasel "0.7.0"]])
 
 (require

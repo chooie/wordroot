@@ -26,7 +26,7 @@
       (http-response/ok (words/get-words (:connection db))))
     (compojure/GET "/words/:word" [word]
       (http-response/ok (words/get-word-by-word-name (:connection db) word)))
-    (compojure-route/not-found "Page not found")))
+    (compojure-route/not-found (views/error-page host port))))
 
 (defn make-handler
   [host port db]

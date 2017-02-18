@@ -17,8 +17,8 @@
     (when (:server component)
       (let [shutdown-fn (:server component)]
         (println "Shutting down server")
-        (shutdown-fn)
-        (assoc component :server nil)))))
+        (shutdown-fn))
+      (assoc component :server nil))))
 
 (defn new-web-server
   [port]

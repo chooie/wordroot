@@ -13,8 +13,7 @@
   (let [system-map            (component/system-map
                                 :routing (routing/new-routing
                                            (:host config)
-                                           (:port config)
-                                           :home)
+                                           (:port config))
                                 :ui (ui/new-ui))
         system-dependency-map (component/system-using system-map
                                 {:ui {:routing-component :routing}})]

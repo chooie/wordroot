@@ -13,12 +13,18 @@
   .site-link {
     display: inline-block;
 
-    a {
-      text-decoration: none;
+    button {
+      background: none;
+      border: none;
       color: white;
+      cursor: pointer;
+      font-size: 15px;
+      outline: none;
+      padding: 0;
+      text-decoration: none;
     }
 
-    a.active {
+    button.active {
       color: $accent1;
     }
   }

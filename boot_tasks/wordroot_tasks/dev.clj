@@ -6,7 +6,7 @@
    [wordroot.config :as config]
    [wordroot.core :as wr]))
 
-(def system (atom nil))
+(defonce system (atom nil))
 
 (defn- init
   []
