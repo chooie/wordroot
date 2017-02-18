@@ -2,4 +2,6 @@
 
 (defn error-page
   []
-  [:h1 "404"])
+  [:div
+   [:h1 "404 - Page not found"]
+   [:div "Press the 'Home' link go to the home page"]])

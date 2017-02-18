@@ -18,7 +18,7 @@
   (compojure/routes
     (compojure/GET "/" []
       (->
-        (http-response/ok (views/index-page host port))
+        (http-response/ok (views/main-app host port))
         (response/content-type "text/html")))
     (compojure/GET "/words-index" []
       (http-response/ok (words/get-words-index (:connection db))))
@@ -26,7 +26,7 @@
       (http-response/ok (words/get-words (:connection db))))
     (compojure/GET "/words/:word" [word]
       (http-response/ok (words/get-word-by-word-name (:connection db) word)))
-    (compojure-route/not-found (views/error-page host port))))
+    (compojure-route/not-found (views/main-app host port))))
 
 (defn make-handler
   [host port db]
