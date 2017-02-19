@@ -19,6 +19,7 @@
                   [levand/immuconf "0.1.0"]
                   [metosin/boot-alt-test "0.3.0"]
                   [metosin/ring-http-response "0.8.0"]
+                  [onetom/boot-lein-generate "0.1.3" :scope "test"]
                   [org.clojure/clojure "1.8.0"]
                   [org.clojure/clojurescript "1.7.228"]
                   [org.clojure/java.jdbc "0.6.2-alpha3"]
@@ -38,11 +39,14 @@
 (require
   '[adzerk.boot-cljs :refer [cljs]]
   '[adzerk.boot-cljs-repl :refer [cljs-repl start-repl]]
-  '[adzerk.boot-reload :refer [reload]]
+  '[adzerk.boot-reload :as boot-reload]
+  '[boot.lein]
   '[crisptrutski.boot-cljs-test :as boot-cljs-test]
   '[deraen.boot-sass :refer [sass]]
   '[metosin.boot-alt-test :as boot-alt-test]
   '[wordroot-tasks.ide-integration :as wordroot-ide-integration])
+
+(boot.lein/generate)
 
 (deftask watch-backend-tests
   []
@@ -129,13 +133,13 @@
   []
   (comp
     (watch)
-    (reload
+    (boot-reload/reload
       :asset-path "public"
       :on-jsload 'wordroot.core/go)
-    (cljs-repl)
+    (cljs-repl :nrepl-opts {:port 9009})
     (build-dev)))
 
-(deftask development
+(deftask cider-config
   []
   (comp
     (wordroot-ide-integration/cider)))
@@ -145,7 +149,7 @@
   []
   (comp
     (run-dev)
-    (development)))
+    (cider-config)))
 
 
 (deftask package

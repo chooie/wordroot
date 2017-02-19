@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Leiningen: deraen/boot-sass:0.3.0">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/deraen/boot-sass/0.3.0/boot-sass-0.3.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
