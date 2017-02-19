@@ -48,32 +48,37 @@
 
 (boot.lein/generate)
 
+(deftask run-backend-tests
+  []
+  (boot-alt-test/alt-test))
+
 (deftask watch-backend-tests
   []
   (comp
     (watch)
     (speak)
-    (boot-alt-test/alt-test)))
+    (run-backend-tests)))
+
+(deftask run-frontend-tests
+  []
+  (comp
+    (boot-cljs-test/test-cljs
+      :keep-errors? true
+      :js-env :slimer)
+    (boot-cljs-test/report-errors!)))
 
 (deftask watch-frontend-tests
   []
   (comp
     (watch)
     (speak)
-    (boot-cljs-test/test-cljs
-      :js-env :slimer)
-    (boot-cljs-test/report-errors!)))
+    (run-frontend-tests)))
 
-(deftask run-backend-tests
-  []
-  (boot-alt-test/alt-test))
-
-(deftask run-frontend-tests
+(deftask run-all-tests
   []
   (comp
-    (boot-cljs-test/test-cljs
-      :keep-errors? true)
-    (boot-cljs-test/report-errors!)))
+    (run-backend-tests)
+    (run-frontend-tests)))
 
 (deftask data-readers
   []
