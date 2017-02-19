@@ -15,22 +15,20 @@
      :on-click #(accountant/navigate! href)}
     label]])
 
+(defn make-link
+  [current-route-atom route-prefix route-paths route-keyword]
+  (let [route-map (get route-paths route-keyword)]
+    [link
+     current-route-atom
+     route-prefix
+     (get route-map :uri)
+     (get route-map :label)
+     route-keyword]))
+
 (defn navbar-component
   [current-route-atom route-prefix route-paths]
   [:nav.navbar
    [:div.row
     [:ul.site-links
-     (let [home (:home route-paths)]
-       [link
-        current-route-atom
-        route-prefix
-        (get home :uri)
-        (get home :label)
-        :home])
-     (let [about (:about route-paths)]
-       [link
-        current-route-atom
-        route-prefix
-        (get about :uri)
-        (get about :label)
-        :about])]]])
+     [make-link current-route-atom route-prefix route-paths :home]
+     [make-link current-route-atom route-prefix route-paths :about]]]])
