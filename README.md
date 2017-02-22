@@ -4,7 +4,7 @@ Teaches the meaning of words and their roots.
 ## Deploy
 - Use Docker with Docker Compose
 - Build the images
-    - `docker-compose build.`
+    - `docker-compose build`
 - Start up containers
     - `docker-compose up -d`
 - For the first deploy, you must initialise the database with some seed data
@@ -31,5 +31,8 @@ Teaches the meaning of words and their roots.
         - `(wordroot-db/reset-database-and-seed!)`
 
 ## Notes
+### Docker
+Need to delete old Docker images
+
 ### Boot
 If Boot noticeably slows down, delete the ~/.boot directory

@@ -1,12 +1,14 @@
 # https://github.com/adzerk-oss/boot-clj-docker-image/blob/master/Dockerfile
-FROM debian:wheezy
+FROM debian:stretch
 MAINTAINER Charlie Hebert <charlie.hebert92@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive
 
+
 # Oracle Java 8 and Boot
 
-RUN apt-get update \
+RUN echo "deb http://packages.linuxmint.com debian import" >> /etc/apt/sources.list \
+    && apt-get update \
     && apt-get install -y curl wget openssl ca-certificates \
     && cd /tmp \
     && wget -qO jdk8.tar.gz \
@@ -21,6 +23,10 @@ RUN apt-get update \
     && chmod +x /usr/bin/boot
 
 ENV JAVA_HOME /opt/java
+
+# SlimerJS
+
+RUN apt-get --allow-unauthenticated install -y firefox
 
 # App
 COPY . /wordroot

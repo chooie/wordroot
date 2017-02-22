@@ -1,4 +1,6 @@
 # Todo
+- Delete old Docker images
+    - Script this
 - Flesh out unit test suite - very lacking right now
 - Add ability to play audio and video files for a relevant word
 - Add search menu
