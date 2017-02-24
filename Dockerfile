@@ -1,15 +1,17 @@
 # https://github.com/adzerk-oss/boot-clj-docker-image/blob/master/Dockerfile
-FROM debian:stretch
+FROM debian:jessie
 MAINTAINER Charlie Hebert <charlie.hebert92@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive
 
+# Prevent apt-get from prompting for confirmation (say yes to all)
+# http://superuser.com/questions/164553/automatically-answer-yes-when-using-apt-get-install
+RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf.d/90forceyes
 
 # Oracle Java 8 and Boot
 
-RUN echo "deb http://packages.linuxmint.com debian import" >> /etc/apt/sources.list \
-    && apt-get update \
-    && apt-get install -y curl wget openssl ca-certificates \
+RUN apt-get update \
+    && apt-get install curl wget openssl ca-certificates \
     && cd /tmp \
     && wget -qO jdk8.tar.gz \
        --header "Cookie: oraclelicense=accept-securebackup-cookie" \
@@ -24,15 +26,12 @@ RUN echo "deb http://packages.linuxmint.com debian import" >> /etc/apt/sources.l
 
 ENV JAVA_HOME /opt/java
 
-# SlimerJS
-
-RUN apt-get --allow-unauthenticated install -y firefox
-
 # App
 COPY . /wordroot
 WORKDIR /wordroot
 
-EXPOSE 8000
+# PhantomJS
+RUN ./bin/debian/install-phantomjs.sh
 
 # download & install deps, cache REPL and web deps
 RUN /usr/bin/boot package
