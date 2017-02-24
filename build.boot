@@ -64,7 +64,8 @@
   (comp
     (boot-cljs-test/test-cljs
       :keep-errors? true
-      :js-env :slimer)
+      :verbosity 3
+      :js-env :phantom)
     (boot-cljs-test/report-errors!)))
 
 (deftask watch-frontend-tests

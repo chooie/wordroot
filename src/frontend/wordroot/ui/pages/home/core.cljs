@@ -33,8 +33,10 @@
   [base-url]
   (let [words-url (str base-url "/words")]
     (ajax/GET words-url
-      {:handler (fn [words]
-                  (reset! words-atom words))})))
+      {:handler       (fn [words]
+                        (reset! words-atom words))
+       :error-handler (fn [error]
+                        (println "Error getting words:" error))})))
 
 (defn home-page
   [base-url]
