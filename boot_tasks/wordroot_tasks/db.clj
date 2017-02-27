@@ -22,7 +22,7 @@
     (seed-management/seed-database! (:db config))
     (println "Database seeded...")))
 
-(defn reset-database-and-seed!
+(defn reset-and-seed-database!
   [profile-key]
   (rollback-migrations! profile-key)
   (run-migrations! profile-key)

@@ -114,9 +114,15 @@
     (fn [fileset]
       (require 'wordroot-tasks.db)
       (let [reset-and-seed! (resolve
-                              'wordroot-tasks.db/reset-database-and-seed!)]
-        (reset-and-seed!))
+                              'wordroot-tasks.db/reset-and-seed-database!)]
+        (reset-and-seed! :production))
       (next-task fileset))))
+
+(deftask reset-and-seed-database!
+  []
+  (comp
+    (data-readers)
+    (reset-and-seed-database)))
 
 (deftask get-build-ready-with-dummy-data
   []

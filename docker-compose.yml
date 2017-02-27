@@ -3,6 +3,8 @@ services:
   web:
     container_name: wordroot_web
     build: .
+    volumes:
+     - .:/wordroot
     ports:
      - "8000:8000"
     links:
