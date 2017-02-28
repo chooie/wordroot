@@ -9,7 +9,7 @@ Teaches the meaning of words and their roots.
     - `docker-compose up -d`
 - For the first deploy, you must initialise the database with some seed data
     - `docker exec -it wordroot_web bash`
-    - `boot get-build-ready-with-dummy-data`
+    - `boot reset-and-seed-database!`
 
 ## Setup
 ### Dev
@@ -35,7 +35,10 @@ Teaches the meaning of words and their roots.
 
 ## Notes
 ### Docker
-Need to delete old Docker images
+- Delete old Docker images
+    - `docker rmi $(docker images -a -q)`
+- Delete old Docker containers
+    - `docker rm $(docker ps -a -q)`
 
 ### Boot
 If Boot noticeably slows down, delete the ~/.boot directory

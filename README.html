@@ -33,7 +33,7 @@
 
 <ul>
 <li><code>docker exec -it wordroot_web bash</code></li>
-<li><code>boot get-build-ready-with-dummy-data</code></li>
+<li><code>boot reset-and-seed-database!</code></li>
 </ul></li>
 </ul>
 
@@ -70,6 +70,9 @@
 <li>Run the migrations and seed the database
 
 <ul>
+<li>Dev
+
+<ul>
 <li>Start the interactive development application
 
 <ul>
@@ -82,13 +85,30 @@
 <li><code>(wordroot-db/reset-database-and-seed!)</code></li>
 </ul></li>
 </ul></li>
+<li>Production
+
+<ul>
+<li><code>boot reset-and-seed-databse!</code></li>
+</ul></li>
+</ul></li>
 </ul>
 
 <h2 id="notes">Notes</h2>
 
 <h3 id="docker">Docker</h3>
 
-<p>Need to delete old Docker images</p>
+<ul>
+<li>Delete old Docker images
+
+<ul>
+<li><code>docker rmi $(docker images -a -q)</code></li>
+</ul></li>
+<li>Delete old Docker containers
+
+<ul>
+<li><code>docker rm $(docker ps -a -q)</code></li>
+</ul></li>
+</ul>
 
 <h3 id="boot">Boot</h3>
 

@@ -124,12 +124,6 @@
     (data-readers)
     (reset-and-seed-database)))
 
-(deftask get-build-ready-with-dummy-data
-  []
-  (comp
-    (data-readers)
-    (reset-and-seed-database)))
-
 (deftask build-dev
   []
   (comp
