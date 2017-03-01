@@ -41,10 +41,10 @@
   '[adzerk.boot-cljs-repl :refer [cljs-repl start-repl]]
   '[adzerk.boot-reload :as boot-reload]
   '[boot.lein]
-  '[crisptrutski.boot-cljs-test :as boot-cljs-test]
   '[deraen.boot-sass :refer [sass]]
   '[metosin.boot-alt-test :as boot-alt-test]
-  '[wordroot-tasks.ide-integration :as wordroot-ide-integration])
+  '[wordroot-tasks.ide-integration :as wordroot-ide-integration]
+  '[wordroot-tasks.test :as wordroot-test])
 
 (boot.lein/generate)
 
@@ -59,27 +59,11 @@
     (speak)
     (run-backend-tests)))
 
-(deftask run-frontend-tests
-  []
-  (comp
-    (boot-cljs-test/test-cljs
-      :keep-errors? true
-      :verbosity 3
-      :js-env :phantom)
-    (boot-cljs-test/report-errors!)))
-
-(deftask watch-frontend-tests
-  []
-  (comp
-    (watch)
-    (speak)
-    (run-frontend-tests)))
-
 (deftask run-all-tests
   []
   (comp
     (run-backend-tests)
-    (run-frontend-tests)))
+    (wordroot-test/run-frontend-tests)))
 
 (deftask data-readers
   []
@@ -145,17 +129,12 @@
     (cljs-repl :nrepl-opts {:port 9009})
     (build-dev)))
 
-(deftask cider-config
-  []
-  (comp
-    (wordroot-ide-integration/cider)))
-
 (deftask dev
   "Launch App with Development Profile"
   []
   (comp
     (run-dev)
-    (cider-config)))
+    (wordroot-ide-integration/cider)))
 
 
 (deftask package
