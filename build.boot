@@ -80,12 +80,6 @@
     (wordroot-util/data-readers)
     (run-migrations)))
 
-#_(deftask reset-and-seed-database!
-    []
-    (comp
-      (wordroot-util/data-readers)
-      (reset-and-seed-database)))
-
 (deftask dev
   "Launch App with Development Profile"
   []
