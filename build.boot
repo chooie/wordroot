@@ -37,14 +37,13 @@
                   [weasel "0.7.0"]])
 
 (require
-  '[adzerk.boot-cljs :refer [cljs]]
-  '[adzerk.boot-cljs-repl :refer [cljs-repl start-repl]]
-  '[adzerk.boot-reload :as boot-reload]
+  '[adzerk.boot-cljs :as boot-cljs]
   '[boot.lein]
-  '[deraen.boot-sass :refer [sass]]
+  '[deraen.boot-sass :as boot-sass]
   '[metosin.boot-alt-test :as boot-alt-test]
-  '[wordroot-tasks.ide-integration :as wordroot-ide-integration]
-  '[wordroot-tasks.test :as wordroot-test])
+  '[wordroot-tasks.dev :as wordroot-dev]
+  '[wordroot-tasks.test :as wordroot-test]
+  '[wordroot-tasks.util :as wordroot-util])
 
 (boot.lein/generate)
 
@@ -65,18 +64,6 @@
     (run-backend-tests)
     (wordroot-test/run-frontend-tests)))
 
-(deftask data-readers
-  []
-  (fn [next-task]
-    (fn [fileset]
-      (#'clojure.core/load-data-readers)
-      (with-bindings {#'*data-readers* (.getRawRoot #'*data-readers*)}
-        ;; All these namespaces require the use of environment variables
-        (require
-          '[wordroot-tasks.dev :as wordroot-dev]
-          '[wordroot-tasks.db :as wordroot-db])
-        (next-task fileset)))))
-
 (deftask run-migrations
   []
   (fn [next-task]
@@ -89,7 +76,7 @@
 (deftask get-build-ready
   []
   (comp
-    (data-readers)
+    (wordroot-util/data-readers)
     (run-migrations)))
 
 (deftask reset-and-seed-database
@@ -105,36 +92,14 @@
 (deftask reset-and-seed-database!
   []
   (comp
-    (data-readers)
+    (wordroot-util/data-readers)
     (reset-and-seed-database)))
-
-(deftask build-dev
-  []
-  (comp
-    (data-readers)
-    (sass
-      :source-map true)
-    (cljs
-      :optimizations :none
-      :source-map    true)
-    (target :dir #{"target"})))
-
-(deftask run-dev
-  []
-  (comp
-    (watch)
-    (boot-reload/reload
-      :asset-path "public"
-      :on-jsload 'wordroot.core/go)
-    (cljs-repl :nrepl-opts {:port 9009})
-    (build-dev)))
 
 (deftask dev
   "Launch App with Development Profile"
   []
   (comp
-    (run-dev)
-    (wordroot-ide-integration/cider)))
+    (wordroot-dev/start-development)))
 
 
 (deftask package
@@ -142,8 +107,8 @@
   []
   (comp
     (run-all-tests)
-    (sass :output-style :compressed)
-    (cljs :optimizations :advanced
+    (boot-sass/sass :output-style :compressed)
+    (boot-cljs/cljs :optimizations :advanced
       :compiler-options {:reloads nil})
     (aot :namespace #{'wordroot.main})
     ;; (pom)
