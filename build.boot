@@ -41,6 +41,7 @@
   '[boot.lein]
   '[deraen.boot-sass :as boot-sass]
   '[metosin.boot-alt-test :as boot-alt-test]
+  '[wordroot-tasks.db :as wordroot-db]
   '[wordroot-tasks.dev :as wordroot-dev]
   '[wordroot-tasks.test :as wordroot-test]
   '[wordroot-tasks.util :as wordroot-util])
@@ -79,21 +80,11 @@
     (wordroot-util/data-readers)
     (run-migrations)))
 
-(deftask reset-and-seed-database
-  []
-  (fn [next-task]
-    (fn [fileset]
-      (require 'wordroot-tasks.db)
-      (let [reset-and-seed! (resolve
-                              'wordroot-tasks.db/reset-and-seed-database!)]
-        (reset-and-seed! :production))
-      (next-task fileset))))
-
-(deftask reset-and-seed-database!
-  []
-  (comp
-    (wordroot-util/data-readers)
-    (reset-and-seed-database)))
+#_(deftask reset-and-seed-database!
+    []
+    (comp
+      (wordroot-util/data-readers)
+      (reset-and-seed-database)))
 
 (deftask dev
   "Launch App with Development Profile"
