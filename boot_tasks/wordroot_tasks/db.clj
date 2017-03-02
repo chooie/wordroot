@@ -30,15 +30,20 @@
   (run-migrations-fn profile-key)
   (seed-database-fn profile-key))
 
-(boot/deftask PRIVATE-reset-and-seed-database!
-  []
-  (fn [next-task]
-    (fn [fileset]
-      (reset-and-seed-database-fn :production)
-      (next-task fileset))))
-
-(boot/deftask reset-and-seed-database!
-  []
+(boot/deftask run-migrations!
+  [e environment VAL kw "Environment to use #{dev production}"]
   (comp
     (wordroot-util/data-readers)
-    (PRIVATE-reset-and-seed-database!)))
+    (fn [next-task]
+      (fn [fileset]
+        (run-migrations-fn environment)
+        (next-task fileset)))))
+
+(boot/deftask reset-and-seed-database!
+  [e environment VAL kw "Environment to use #{dev production}"]
+  (comp
+    (wordroot-util/data-readers)
+    (fn [next-task]
+      (fn [fileset]
+        (reset-and-seed-database-fn environment)
+        (next-task fileset)))))

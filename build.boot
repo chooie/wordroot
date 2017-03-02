@@ -43,8 +43,7 @@
   '[metosin.boot-alt-test :as boot-alt-test]
   '[wordroot-tasks.db :as wordroot-db]
   '[wordroot-tasks.dev :as wordroot-dev]
-  '[wordroot-tasks.test :as wordroot-test]
-  '[wordroot-tasks.util :as wordroot-util])
+  '[wordroot-tasks.test :as wordroot-test])
 
 (boot.lein/generate)
 
@@ -64,21 +63,6 @@
   (comp
     (run-backend-tests)
     (wordroot-test/run-frontend-tests)))
-
-(deftask run-migrations
-  []
-  (fn [next-task]
-    (fn [fileset]
-      (require 'wordroot-tasks.db)
-      (let [run-migrations! (resolve 'wordroot-tasks.db/run-migrations!)]
-        (run-migrations!))
-      (next-task fileset))))
-
-(deftask get-build-ready
-  []
-  (comp
-    (wordroot-util/data-readers)
-    (run-migrations)))
 
 (deftask dev
   "Launch App with Development Profile"
