@@ -43,15 +43,18 @@
   (get-words! base-url)
   (let [words @words-atom
         word  (get words @current-word-index-atom)]
-    (if words
-      [:div
-       [words-navbar/component words
-        current-word-index-atom
-        menu-is-open?-atom]
-       [:div.controls
-        [words-menu-toggle menu-is-open?-atom]]
-       [:h1"Home"]
-       [:div.clear]
-       [word-view/component word]]
+    (if ((complement nil?) words)
+      (if (> (count words) 0)
+        [:div
+         [words-navbar/component words
+          current-word-index-atom
+          menu-is-open?-atom]
+         [:div.controls
+          [words-menu-toggle menu-is-open?-atom]]
+         [:h1"Home"]
+         [:div.clear]
+         [word-view/component word]]
+        [:div
+         [:h1 "Error! We couldn't find any words :("]])
       [:div
        [:h1 "Loading..."]])))

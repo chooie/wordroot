@@ -39,6 +39,15 @@
         (run-migrations-fn environment)
         (next-task fileset)))))
 
+(boot/deftask rollback-migrations!
+  [e environment VAL kw "Environment to use #{dev production}"]
+  (comp
+    (wordroot-util/data-readers)
+    (fn [next-task]
+      (fn [fileset]
+        (rollback-migrations-fn environment)
+        (next-task fileset)))))
+
 (boot/deftask reset-and-seed-database!
   [e environment VAL kw "Environment to use #{dev production}"]
   (comp
