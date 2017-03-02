@@ -40,29 +40,11 @@
   '[adzerk.boot-cljs :as boot-cljs]
   '[boot.lein]
   '[deraen.boot-sass :as boot-sass]
-  '[metosin.boot-alt-test :as boot-alt-test]
   '[wordroot-tasks.db :as wordroot-db]
   '[wordroot-tasks.dev :as wordroot-dev]
-  '[wordroot-tasks.test :as wordroot-test])
+  '[wordroot-tasks.testers :as wordroot-test])
 
 (boot.lein/generate)
-
-(deftask run-backend-tests
-  []
-  (boot-alt-test/alt-test))
-
-(deftask watch-backend-tests
-  []
-  (comp
-    (watch)
-    (speak)
-    (run-backend-tests)))
-
-(deftask run-all-tests
-  []
-  (comp
-    (run-backend-tests)
-    (wordroot-test/run-frontend-tests)))
 
 (deftask dev
   "Launch App with Development Profile"
@@ -75,7 +57,7 @@
   "Build the package"
   []
   (comp
-    (run-all-tests)
+    (wordroot-test/run-all-tests)
     (boot-sass/sass :output-style :compressed)
     (boot-cljs/cljs :optimizations :advanced
       :compiler-options {:reloads nil})
