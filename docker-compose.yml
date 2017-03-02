@@ -10,12 +10,12 @@ services:
     links:
      - db
   db:
-    image: postgres
+    image: sameersbn/postgresql:9.6-2
     container_name: wordroot_db
     environment:
-     - POSTGRES_USER=wordroot_user
-     - POSTGRES_PASSWORD=weak_password
-     - POSTGRES_DB=wordroot_database
+     - DB_USER=wordroot_user
+     - DB_PASS=weak_password
+     - DB_NAME=wordroot_database,wordroot_test_database
     volumes:
      - wordroot_data:/var/lib/postgresql/data
 volumes:
