@@ -74,7 +74,7 @@
     (let [word-result (insert-word! transaction-connection
                         {:word word :meaning meaning})
           word-id     (:id word-result)]
-      (insert-parts! db-connection word-id parts))))
+      (insert-parts! transaction-connection word-id parts))))
 
 (defn prepare-word
   [transaction-connection word-id word]

@@ -13,7 +13,6 @@
 
 (defn create-ragtime-config
   [postgres-db]
-  (println postgres-db)
   {:datastore  (ragtime.jdbc/sql-database
                  {:connection-uri (get-ragtime-postgres-uri postgres-db)})
    :migrations (ragtime.jdbc/load-resources "migrations")})
