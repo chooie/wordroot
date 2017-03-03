@@ -1,6 +1,7 @@
 # Todo
-- Clean up boot tasks
-    - Call them from modules
+- Add ability to dev in docker container
+    - Immediate and clear feedback on tests
+    - Work on improving environment configuration
 - Flesh out unit test suite - very lacking right now
 - Add ability to play audio and video files for a relevant word
 - Add search menu
