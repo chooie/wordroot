@@ -28,6 +28,7 @@
 (defonce words-atom (reagent/atom nil))
 (defonce current-word-index-atom (reagent/atom 0))
 (defonce menu-is-open?-atom (reagent/atom false))
+(defonce get-words-has-been-run? (atom false))
 
 (defn get-words!
   [base-url]
@@ -40,7 +41,9 @@
 
 (defn home-page
   [base-url]
-  (get-words! base-url)
+  (when (not @get-words-has-been-run?)
+    (get-words! base-url)
+    (reset! get-words-has-been-run? true))
   (let [words @words-atom
         word  (get words @current-word-index-atom)]
     (if ((complement nil?) words)
@@ -51,7 +54,7 @@
           menu-is-open?-atom]
          [:div.controls
           [words-menu-toggle menu-is-open?-atom]]
-         [:h1"Home"]
+         [:h1 "Home"]
          [:div.clear]
          [word-view/component word]]
         [:div

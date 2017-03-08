@@ -1,7 +1,9 @@
 # Todo
 - Add ability to dev in docker container
-    - Immediate and clear feedback on tests
-    - Work on improving environment configuration
+  - This is not working well for the time being. File system is too slow in picking
+  up code changes, resulting in a bad dev experience. Also, could not figure out
+  how to connect to the repl in the container.
+- Work on improving environment configuration
 - Flesh out unit test suite - very lacking right now
 - Add ability to play audio and video files for a relevant word
 - Add search menu

@@ -56,6 +56,8 @@
     (wordroot-ide-integration/cider)
     (boot-task/watch)
     (boot-reload/reload
+      :port 33215
+      :ws-port 33215
       :asset-path "public"
       :on-jsload 'wordroot.core/go)
     (boot-cljs-repl/cljs-repl :nrepl-opts {:port 9009})

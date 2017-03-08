@@ -50,6 +50,8 @@
   "Launch App with Development Profile"
   []
   (comp
+    (wordroot-db/reset-and-seed-database!
+      :environment :dev)
     (wordroot-dev/start-development)))
 
 
