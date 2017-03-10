@@ -3,10 +3,12 @@ services:
   web:
     container_name: wordroot_web
     build: .
+    environment:
+     - IS_RUNNING_IN_CONTAINER=yes
     volumes:
      - .:/wordroot
     ports:
-     - "8000:8000"
+     - "80:80"
     links:
      - db
   db:
