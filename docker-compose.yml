@@ -19,6 +19,6 @@ services:
      - DB_PASS=weak_password
      - DB_NAME=wordroot_database,wordroot_test_database
     volumes:
-     - wordroot_data:/var/lib/postgresql/data
+     - wordroot_data:/var/lib/postgresql
 volumes:
   wordroot_data:
