@@ -15,7 +15,9 @@
                                 :handler (handler/new-handler
                                            (:host config)
                                            (:port config))
-                                :server (server/new-web-server (:port config)))
+                                :server (server/new-web-server
+                                          (:port config)
+                                          (:resources-path config)))
         system-dependency-map (component/system-using system-map
                                 {:handler {:db :db}
                                  :server  {:handler :handler}})]

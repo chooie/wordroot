@@ -20,5 +20,6 @@ services:
      - DB_NAME=wordroot_database,wordroot_test_database
     volumes:
      - wordroot_data:/var/lib/postgresql
+     - wordroot_data:/wordroot-data
 volumes:
   wordroot_data:

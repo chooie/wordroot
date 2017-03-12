@@ -3,7 +3,7 @@
    [com.stuartsierra.component :as component]
    [org.httpkit.server :as httpkit-server]))
 
-(defrecord WebServer [port handler]
+(defrecord WebServer [port resources-path handler]
   component/Lifecycle
 
   (start [component]
@@ -21,5 +21,6 @@
       (assoc component :server nil))))
 
 (defn new-web-server
-  [port]
-  (map->WebServer {:port port}))
+  [port resources-path]
+  (map->WebServer {:port           port
+                   :resources-path resources-path}))
