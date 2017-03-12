@@ -1,8 +1,4 @@
 # Todo
-- Add ability to dev in docker container
-  - This is not working well for the time being. File system is too slow in picking
-  up code changes, resulting in a bad dev experience. Also, could not figure out
-  how to connect to the repl in the container.
 - Add ability to play audio and video files for a relevant word
 - Add search menu
 - When exploring roots, displays words that share that root
@@ -15,3 +11,7 @@ variables that can be accessed in the docker-compose.yml file
 - Deploy build to production after commit
     - Not going to bother with automated system testing for now
     - Need to research this more. Jenkins?
+- Add ability to dev in docker container
+  - This is not working well for the time being. File system is too slow in picking
+  up code changes, resulting in a bad dev experience. Also, could not figure out
+  how to connect to the repl in the container.
