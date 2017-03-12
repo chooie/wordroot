@@ -39,11 +39,13 @@
 (require
   '[adzerk.boot-cljs :as boot-cljs]
   '[boot.lein]
+  '[clojure.tools.namespace.repl :as repl]
   '[deraen.boot-sass :as boot-sass]
   '[wordroot-tasks.db :as wordroot-db]
   '[wordroot-tasks.dev :as wordroot-dev]
   '[wordroot-tasks.testers :as wordroot-test])
 
+(repl/disable-reload!)
 (boot.lein/generate)
 
 (deftask dev

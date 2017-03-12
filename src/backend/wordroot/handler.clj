@@ -46,7 +46,12 @@
 
   (stop [component]
     (println "Stopping handler")
-    (assoc component :handler nil)))
+    (->
+      component
+      (assoc :handler nil)
+      (assoc :db nil)
+      (assoc :host nil)
+      (assoc :port nil))))
 
 (defn new-handler
   [host port]

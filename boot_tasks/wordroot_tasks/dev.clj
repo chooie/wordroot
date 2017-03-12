@@ -37,7 +37,8 @@
 
 (defn reset
   []
-  (repl/refresh :after 'wordroot-tasks.dev/go))
+  (stop)
+  (repl/refresh-all :after 'wordroot-tasks.dev/go))
 
 (boot/deftask build-dev
   []
