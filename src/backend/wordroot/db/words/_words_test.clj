@@ -1,6 +1,6 @@
 (ns wordroot.db.words.-words-test
   (:require
-   [clojure.test :refer [deftest is testing run-tests]]
+   [clojure.test :refer [deftest is testing]]
    [com.stuartsierra.component :as component]
    [wordroot.config :as config]
    [wordroot.db.core :as wordroot-db]
