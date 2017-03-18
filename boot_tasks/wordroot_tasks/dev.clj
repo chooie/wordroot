@@ -16,14 +16,10 @@
 
 (defn ^:private app-go
   []
-  (require 'wordroot.config)
   (require 'wordroot.core)
   (reloaded-workflow/set-init!
     (fn []
-      (let [config ((resolve
-                      'wordroot.config/get-config-with-profile)
-                    :dev)]
-        ((resolve 'wordroot.core/wordroot-system) config))))
+      ((resolve 'wordroot.core/get-wordroot-system-with-profile) :dev)))
   (reloaded-workflow/go))
 
 (boot/deftask ^:private start-app

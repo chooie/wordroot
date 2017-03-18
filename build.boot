@@ -21,7 +21,7 @@
                   [metosin/ring-http-response "0.8.0"]
                   [onetom/boot-lein-generate "0.1.3"]
                   [org.clojure/clojure "1.8.0"]
-                  [org.clojure/clojurescript "1.9.494"]
+                  [org.clojure/clojurescript "1.7.228"]
                   [org.clojure/java.jdbc "0.6.2-alpha3"]
                   [org.clojure/tools.namespace "0.3.0-alpha3"]
                   [org.clojure/tools.nrepl "0.2.12"]
@@ -65,8 +65,7 @@
     (boot-sass/sass
       :output-style :compressed)
     (boot-cljs/cljs
-      :optimizations :advanced
-      :compiler-options {:reloads nil})
+      :optimizations :advanced)
     (aot
       :namespace #{'wordroot.main})
     ;; (pom)
