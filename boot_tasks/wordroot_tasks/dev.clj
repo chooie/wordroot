@@ -9,26 +9,33 @@
    [com.stuartsierra.component :as component]
    [deraen.boot-sass :as boot-sass]
    [reloaded.repl :as reloaded-workflow]
-   [wordroot.config :as config]
-   [wordroot.core :as wr]
    [wordroot-tasks.ide-integration :as wordroot-ide-integration]
    [wordroot-tasks.util :as wordroot-util]))
 
 (repl/disable-reload!)
 
-(reloaded.repl/set-init!
-  (fn []
-    (let [config (config/get-config-with-profile :dev)]
-      (wr/wordroot-system config))))
+(defn ^:private app-go
+  []
+  (require 'wordroot.config)
+  (require 'wordroot.core)
+  (reloaded-workflow/set-init!
+    (fn []
+      (let [config ((resolve
+                      'wordroot.config/get-config-with-profile)
+                    :dev)]
+        ((resolve 'wordroot.core/wordroot-system) config))))
+  (reloaded-workflow/go))
 
 (boot/deftask ^:private start-app
   []
   (let [x (atom nil)]
+    (boot/cleanup (reloaded-workflow/stop))
     (boot/with-pre-wrap fileset
-      (swap! x (fn [x]
-                 (if x
-                   x
-                   (reloaded-workflow/go))))
+      (swap! x
+        (fn [x]
+          (if x
+            x
+            (app-go))))
       fileset)))
 
 (boot/deftask build-dev
