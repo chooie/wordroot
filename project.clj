@@ -33,6 +33,7 @@
    [ragtime "0.6.3"]
    [reagent "0.6.0"]
    [reagent-utils "0.2.0"]
+   [reloaded.repl "0.2.3"]
    [ring "1.5.0"]
    [ring-middleware-format "0.7.0"]
    [secretary "1.0.3"]

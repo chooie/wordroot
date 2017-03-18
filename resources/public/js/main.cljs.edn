@@ -1,3 +1,4 @@
 {:require          [wordroot.core]
  :init-fns         [wordroot.core/go]
- :compiler-options {:asset-path "js/main.out"}}
+ :compiler-options {:asset-path     "js/main.out"
+                    :parallel-build true}}

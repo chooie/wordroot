@@ -30,6 +30,7 @@
                   [ragtime "0.6.3"]
                   [reagent "0.6.0"]
                   [reagent-utils "0.2.0"]
+                  [reloaded.repl "0.2.3"]
                   [ring "1.5.0"]
                   [ring-middleware-format "0.7.0"]
                   [secretary "1.0.3"]
@@ -39,13 +40,12 @@
 (require
   '[adzerk.boot-cljs :as boot-cljs]
   '[boot.lein]
-  '[clojure.tools.namespace.repl :as repl]
   '[deraen.boot-sass :as boot-sass]
+  '[reloaded.repl :refer [system start stop go reset]]
   '[wordroot-tasks.db :as wordroot-db]
   '[wordroot-tasks.dev :as wordroot-dev]
   '[wordroot-tasks.testers :as wordroot-test])
 
-(repl/disable-reload!)
 (boot.lein/generate)
 
 (deftask dev
@@ -62,12 +62,17 @@
   []
   (comp
     (wordroot-test/run-all-tests)
-    (boot-sass/sass :output-style :compressed)
-    (boot-cljs/cljs :optimizations :advanced
+    (boot-sass/sass
+      :output-style :compressed)
+    (boot-cljs/cljs
+      :optimizations :advanced
       :compiler-options {:reloads nil})
-    (aot :namespace #{'wordroot.main})
+    (aot
+      :namespace #{'wordroot.main})
     ;; (pom)
     (uber)
-    (jar :main 'wordroot.main)
-    (sift :include #{#".*\.jar"})
+    (jar
+      :main 'wordroot.main)
+    (sift
+      :include #{#".*\.jar"})
     (target)))

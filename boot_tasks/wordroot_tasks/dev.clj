@@ -13,32 +13,12 @@
    [wordroot-tasks.ide-integration :as wordroot-ide-integration]
    [wordroot-tasks.util :as wordroot-util]))
 
-(defonce system (atom nil))
+(repl/disable-reload!)
 
-(defn- init
-  []
-  (let [config (config/get-config-with-profile :dev)]
-    (reset! system (wr/wordroot-system config))))
-
-(defn- start
-  []
-  (reset! system (component/start @system)))
-
-(defn- stop
-  []
-  (when @system
-    (reset! system (component/stop @system))))
-
-(defn go
-  []
-  (stop)
-  (init)
-  (start))
-
-(defn reset
-  []
-  (stop)
-  (repl/refresh-all :after 'wordroot-tasks.dev/go))
+(reloaded.repl/set-init!
+  (fn []
+    (let [config (config/get-config-with-profile :dev)]
+      (wr/wordroot-system config))))
 
 (boot/deftask build-dev
   []
@@ -48,7 +28,8 @@
       :source-map true)
     (boot-cljs/cljs
       :optimizations :none
-      :source-map    true)
+      :source-map    true
+      :ids #{"public/js/main"})
     (boot-task/target :dir #{"target"})))
 
 (boot/deftask start-development
@@ -61,5 +42,7 @@
       :ws-port 33215
       :asset-path "public"
       :on-jsload 'wordroot.core/go)
-    (boot-cljs-repl/cljs-repl :nrepl-opts {:port 9009})
+    (boot-cljs-repl/cljs-repl
+      :nrepl-opts {:port 9009}
+      :ids #{"public/js/main"})
     (build-dev)))
