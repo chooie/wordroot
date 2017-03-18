@@ -8,6 +8,7 @@
    [clojure.tools.namespace.repl :as repl]
    [com.stuartsierra.component :as component]
    [deraen.boot-sass :as boot-sass]
+   [reloaded.repl :as reloaded-workflow]
    [wordroot.config :as config]
    [wordroot.core :as wr]
    [wordroot-tasks.ide-integration :as wordroot-ide-integration]
@@ -45,4 +46,5 @@
     (boot-cljs-repl/cljs-repl
       :nrepl-opts {:port 9009}
       :ids #{"public/js/main"})
-    (build-dev)))
+    (build-dev)
+    (reloaded-workflow/go)))
