@@ -7,7 +7,7 @@
   :dependencies
   [[adzerk/boot-cljs "1.7.228-1"]
    [adzerk/boot-cljs-repl "0.3.2"]
-   [adzerk/boot-reload "0.4.12"]
+   [adzerk/boot-reload "0.5.1"]
    [cljs-ajax "0.5.8"]
    [com.cemerick/piggieback "0.2.1"]
    [com.layerware/hugsql "0.4.7"]

@@ -21,10 +21,19 @@
     (let [config (config/get-config-with-profile :dev)]
       (wr/wordroot-system config))))
 
+(boot/deftask ^:private start-app
+  []
+  (let [x (atom nil)]
+    (boot/with-pre-wrap fileset
+      (swap! x (fn [x]
+                 (if x
+                   x
+                   (reloaded-workflow/go))))
+      fileset)))
+
 (boot/deftask build-dev
   []
   (comp
-    (wordroot-util/data-readers)
     (boot-sass/sass
       :source-map true)
     (boot-cljs/cljs
@@ -36,6 +45,7 @@
 (boot/deftask start-development
   []
   (comp
+    (wordroot-util/data-readers)
     (wordroot-ide-integration/cider)
     (boot-task/watch)
     (boot-reload/reload
@@ -47,4 +57,4 @@
       :nrepl-opts {:port 9009}
       :ids #{"public/js/main"})
     (build-dev)
-    (reloaded-workflow/go)))
+    (start-app)))
