@@ -1,0 +1,8 @@
+{:host           "localhost"
+ :port           8001
+ :resources-path "/wordroot-test-data"
+ :db             {:dbtype   "postgresql"
+                  :dbname   "wordroot_test_database"
+                  :host     "localhost"
+                  :user     "wordroot_user"
+                  :password "weak_password"}}
