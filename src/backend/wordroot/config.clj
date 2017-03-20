@@ -2,14 +2,21 @@
   (:require
    [immuconf.config :as immuconf]))
 
-(def profile-configs-directory-path "secrets/profile-configs/")
+(def profile-configs-directory-path "configuration/")
+(def production-config-directory-path "secrets/profile-configs/")
 
 (defn- get-config-file-path-for-profile
   [profile-key]
-  (let [get-path-to (fn [file-name]
-                      (str profile-configs-directory-path file-name))]
+  (let [get-path-to            (fn [file-name]
+                                 (str
+                                   profile-configs-directory-path
+                                   file-name))
+        get-path-to-production (fn [file-name]
+                                 (str
+                                   production-config-directory-path
+                                   file-name))]
     (case profile-key
-      :production           (get-path-to "production.edn")
+      :production           (get-path-to-production "production.edn")
       :dev                  (get-path-to "dev.edn")
       :automated-tests      (get-path-to "automated-tests.edn")
       :unrecognised-profile (throw
