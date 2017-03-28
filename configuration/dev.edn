@@ -1,6 +1,6 @@
 {:host           "localhost"
  :port           8000
- :resources-path "/wordroot-dev-data"
+ :resources-path "/usr/local/wordroot-dev-data"
  :db             {:dbtype   "postgresql"
                   :dbname   "wordroot_dev_database"
                   :host     "localhost"

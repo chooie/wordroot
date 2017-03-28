@@ -20,5 +20,13 @@
     resources-path))
 
 (deftest file-test
-  (testing "Can get resource handler file asset path"
-    (is (= (get-asset-path) "/wordroot-test-data"))))
+  (let [asset-path (get-asset-path)]
+    (testing "Can get resource handler file asset path"
+      (is (= asset-path "/usr/local/wordroot-test-data")))
+    (testing "Checks that the path is not an existing directory"
+      (when (file/is-existing-directory? asset-path)
+        (file/delete-file asset-path))
+      (is (= (file/is-existing-directory? asset-path) false)))
+    (testing "Can create directory and check that exists"
+      (file/create-directory asset-path)
+      (is (= (file/is-existing-directory? asset-path) true)))))
