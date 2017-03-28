@@ -8,7 +8,10 @@ services:
     volumes:
      - .:/wordroot
     ports:
-     - "80:80"
+     - "80:80"       # Production
+     - "8000:8000"   # Dev
+     - "9009:9009"   # Clojure REPL
+     - "33215:33215" # Resource reloading
     links:
      - db
   db:
@@ -17,7 +20,7 @@ services:
     environment:
      - DB_USER=wordroot_user
      - DB_PASS=weak_password
-     - DB_NAME=wordroot_database,wordroot_test_database
+     - DB_NAME=wordroot_database,wordroot_test_database,wordroot_dev_database
     volumes:
      - wordroot_data:/var/lib/postgresql
      - wordroot_data:/wordroot-data
