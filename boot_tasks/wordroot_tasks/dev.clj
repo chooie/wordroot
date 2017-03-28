@@ -57,8 +57,7 @@
       :asset-path "public"
       :on-jsload 'wordroot.core/go)
     (boot-cljs-repl/cljs-repl
-      :nrepl-opts {:ws-host "0.0.0.0"
-                   :port    9009}
+      :nrepl-opts {:port 9009}
       :ws-host "0.0.0.0"
       :port 9009
       :ids #{"public/js/main"})
