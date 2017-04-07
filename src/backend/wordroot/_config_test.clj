@@ -6,4 +6,4 @@
 (deftest config-test
   (testing "Config for resource paths"
     (let [test-config (config/get-config-with-profile :automated-tests)]
-      (is (= "/wordroot-test-data" (:resources-path test-config))))))
+      (is (= "/usr/local/wordroot-test-data" (:resources-path test-config))))))
