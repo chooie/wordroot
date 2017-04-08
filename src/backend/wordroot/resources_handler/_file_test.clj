@@ -23,17 +23,27 @@
   (let [asset-path (get-asset-path)]
     (testing "Can get resource handler file asset path"
       (is (= asset-path "/usr/local/wordroot-test-data")))
+
     (testing "Checks that the path is not an existing directory"
       (when (file/is-existing-directory? asset-path)
         (file/delete-recursively asset-path))
       (is (= (file/is-existing-directory? asset-path) false)))
+
     (testing "Can create directory and check that exists"
       (file/create-directory asset-path)
       (is (= (file/is-existing-directory? asset-path) true)))
+
     (testing "Can create a file at a given path"
       (let [file-path (str asset-path "/foo.txt")]
         (println file-path)
         (is (= false (file/file-exists? file-path)))
         (file/create-file-at file-path "Hello, world!")
         (is (= true (file/file-exists? file-path)))
-        (is (= "Hello, world!" (slurp file-path)))))))
+        (is (= "Hello, world!" (slurp file-path)))))
+
+    (testing "Can delete a file at a given path"
+      (let [file-path (str asset-path "/bar.text")]
+        (file/create-file-at file-path "Hello, world")
+        (is (= "Hello, world" (slurp file-path)))
+        (file/delete-file file-path)
+        (is (= false (file/file-exists? file-path)))))))
